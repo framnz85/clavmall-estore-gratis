@@ -49,6 +49,8 @@ const PaymentCreate = lazy(() => import("./pages/admin/payment/PaymentCreate"));
 const PaymentUpdate = lazy(() => import("./pages/admin/payment/PaymentUpdate"));
 const ManageUser = lazy(() => import("./pages/admin/ManageUser"));
 const ManageHome = lazy(() => import("./pages/admin/ManageHome"));
+const Upgrade = lazy(() => import("./pages/admin/Upgrades"));
+const Guide = lazy(() => import("./pages/admin/guide"));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -315,6 +317,24 @@ const App = () => {
             element={
               <AdminRoute>
                 <ManageHome setSlug={setSlug} estore={estore} />
+              </AdminRoute>
+            }
+          />
+          <Route
+            exact
+            path="/:slug/admin/upgrade"
+            element={
+              <AdminRoute>
+                <Upgrade setSlug={setSlug} estore={estore} />
+              </AdminRoute>
+            }
+          />
+          <Route
+            exact
+            path="/:slug/admin/guide"
+            element={
+              <AdminRoute>
+                <Guide setSlug={setSlug} estore={estore} />
               </AdminRoute>
             }
           />

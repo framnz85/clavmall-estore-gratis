@@ -16,6 +16,17 @@ export const getUserOrders = async (estoreid, authToken) =>
     },
   });
 
+export const getAdminOrder = async (estoreid, orderid, authToken) =>
+  await axios.get(
+    process.env.REACT_APP_API + "/gratis/admin-order/" + orderid,
+    {
+      headers: {
+        authToken,
+        estoreid,
+      },
+    }
+  );
+
 export const getAdminOrders = async (estoreid, authToken) =>
   await axios.get(process.env.REACT_APP_API + "/gratis/admin-orders", {
     headers: {

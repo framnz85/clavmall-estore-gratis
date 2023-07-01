@@ -12,6 +12,7 @@ import {
   TeamOutlined,
   HomeOutlined,
   UserOutlined,
+  ToolOutlined,
   LogoutOutlined,
   QuestionCircleOutlined,
 } from "@ant-design/icons";
@@ -90,8 +91,14 @@ const AdminNav = () => {
       label: "Personal",
     },
     {
+      key: "13",
+      href: `/${estoreSet.slug}/admin/upgrade`,
+      icon: <ToolOutlined />,
+      label: "Upgrades",
+    },
+    {
       key: "15",
-      href: `/${estoreSet.slug}/admin/guide1`,
+      href: `/${estoreSet.slug}/admin/guide`,
       icon: <QuestionCircleOutlined />,
       label: "Guide",
     },

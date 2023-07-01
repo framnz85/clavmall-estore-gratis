@@ -27,7 +27,7 @@ const BuyButton = ({ handleAddToCart }) => {
       default:
         break;
     }
-  }, [activeTabs]);
+  }, [activeTabs]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const tabStyle = {
     containier: {
@@ -70,7 +70,7 @@ const BuyButton = ({ handleAddToCart }) => {
           <div style={tabStyle.bnTab}>
             <RiHomeSmile2Line
               size="35"
-              color={estoreSet.headerColor}
+              color="#009A57"
               onClick={() => setActiveTabs("home")}
             />
           </div>
@@ -94,7 +94,7 @@ const BuyButton = ({ handleAddToCart }) => {
             >
               <AiOutlineShoppingCart
                 size="35"
-                color={estoreSet.headerColor}
+                color="#009A57"
                 onClick={() => setActiveTabs("cart")}
               />
             </Badge>

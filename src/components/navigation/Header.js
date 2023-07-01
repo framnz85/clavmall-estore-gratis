@@ -11,6 +11,7 @@ import {
   ShoppingCartOutlined,
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
+import { isMobile } from "react-device-detect";
 
 import SearchHead from "./SearchHead";
 import Categories from "./Categories";
@@ -54,7 +55,7 @@ const Header = () => {
       style={menuStyle.mainContainer}
     >
       <BrowserView className="d-flex flex-row">
-        <Categories />
+        {estoreSet && estoreSet._id && <Categories />}
         <div className="p-3 mr-3">
           <Link to={`/${estoreSet.slug}`} style={menuStyle.headerStyle}>
             <HomeOutlined /> Home
@@ -81,6 +82,7 @@ const Header = () => {
         </div>
       </BrowserView>
       <div className="d-flex justify-content-end">
+        {isMobile && estoreSet && estoreSet._id && <Categories />}
         <div className="mr-3" style={{ padding: "13px" }}>
           <SearchHead />
         </div>

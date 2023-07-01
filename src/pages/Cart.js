@@ -62,6 +62,8 @@ const Cart = () => {
           navigate(`/${estoreSet.slug}/checkout`);
         }
       });
+    } else {
+      navigate(`/${estoreSet.slug}/auth`);
     }
   };
 
@@ -133,10 +135,7 @@ const Cart = () => {
               </Link>
             </>
           )}
-          <CartButton
-            handleCartOrder={handleCartOrder}
-            cartCalculation={cartCalculation}
-          />
+          <CartButton handleCartOrder={handleCartOrder} />
         </div>
       </div>
     </div>

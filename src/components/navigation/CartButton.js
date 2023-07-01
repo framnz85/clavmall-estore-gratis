@@ -8,7 +8,7 @@ import { CheckOutlined } from "@ant-design/icons";
 import { RiHomeSmile2Line } from "react-icons/ri";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 
-const CartButton = ({ handleCartOrder, cartCalculation }) => {
+const CartButton = ({ handleCartOrder }) => {
   const navigate = useNavigate();
 
   const [activeTabs, setActiveTabs] = useState("Francis");
@@ -27,7 +27,7 @@ const CartButton = ({ handleCartOrder, cartCalculation }) => {
       default:
         break;
     }
-  }, [activeTabs]);
+  }, [activeTabs]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const tabStyle = {
     containier: {
@@ -70,7 +70,7 @@ const CartButton = ({ handleCartOrder, cartCalculation }) => {
           <div style={tabStyle.bnTab}>
             <RiHomeSmile2Line
               size="35"
-              color={estoreSet.headerColor}
+              color="#009A57"
               onClick={() => setActiveTabs("home")}
             />
           </div>
@@ -95,7 +95,7 @@ const CartButton = ({ handleCartOrder, cartCalculation }) => {
             >
               <AiOutlineShoppingCart
                 size="35"
-                color={estoreSet.headerColor}
+                color="#009A57"
                 onClick={() => setActiveTabs("cart")}
               />
             </Badge>

@@ -46,7 +46,7 @@ const TabBottom = () => {
       default:
         break;
     }
-  }, [activeTabs]);
+  }, [activeTabs]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const tabStyle = {
     containier: {
@@ -82,13 +82,13 @@ const TabBottom = () => {
             {activeTabs === "home" ? (
               <RiHomeSmile2Fill
                 size="35"
-                color={estoreSet.headerColor}
+                color="#009A57"
                 onClick={() => setActiveTabs("home")}
               />
             ) : (
               <RiHomeSmile2Line
                 size="35"
-                color={estoreSet.headerColor}
+                color="#009A57"
                 onClick={() => setActiveTabs("home")}
               />
             )}
@@ -97,13 +97,13 @@ const TabBottom = () => {
             {activeTabs === "shop" ? (
               <AiFillShopping
                 size="35"
-                color={estoreSet.headerColor}
+                color="#009A57"
                 onClick={() => setActiveTabs("shop")}
               />
             ) : (
               <AiOutlineShopping
                 size="35"
-                color={estoreSet.headerColor}
+                color="#009A57"
                 onClick={() => setActiveTabs("shop")}
               />
             )}
@@ -119,7 +119,7 @@ const TabBottom = () => {
               >
                 <FaShoppingCart
                   size="35"
-                  color={estoreSet.headerColor}
+                  color="#009A57"
                   onClick={() => setActiveTabs("cart")}
                 />
               </Badge>
@@ -133,7 +133,7 @@ const TabBottom = () => {
               >
                 <AiOutlineShoppingCart
                   size="35"
-                  color={estoreSet.headerColor}
+                  color="#009A57"
                   onClick={() => setActiveTabs("cart")}
                 />
               </Badge>
@@ -144,13 +144,13 @@ const TabBottom = () => {
               {activeTabs === "user" ? (
                 <RiUser5Fill
                   size="35"
-                  color={estoreSet.headerColor}
+                  color="#009A57"
                   onClick={() => setActiveTabs("user")}
                 />
               ) : (
                 <RiUser5Line
                   size="35"
-                  color={estoreSet.headerColor}
+                  color="#009A57"
                   onClick={() => setActiveTabs("user")}
                 />
               )}
@@ -161,13 +161,13 @@ const TabBottom = () => {
               {activeTabs === "login" ? (
                 <RiUser5Fill
                   size="35"
-                  color={estoreSet.headerColor}
+                  color="#009A57"
                   onClick={() => setActiveTabs("login")}
                 />
               ) : (
                 <RiUser5Line
                   size="35"
-                  color={estoreSet.headerColor}
+                  color="#009A57"
                   onClick={() => setActiveTabs("login")}
                 />
               )}

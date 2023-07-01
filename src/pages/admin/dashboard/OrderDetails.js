@@ -9,7 +9,7 @@ import DetailsTable from "../../../components/admin/DetailsTable";
 import OrderModal from "../../../components/modal/OrderModal";
 import Alerts from "../../../components/common/Alerts";
 
-import { getUserOrder } from "../../../functions/order";
+import { getAdminOrder } from "../../../functions/order";
 
 const OrderDetails = () => {
   const { orderid } = useParams();
@@ -25,7 +25,7 @@ const OrderDetails = () => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadUserOrder = () => {
-    getUserOrder(estoreSet._id, orderid, user.token).then((res) => {
+    getAdminOrder(estoreSet._id, orderid, user.token).then((res) => {
       if (res.data.err) {
         toast.error(res.data.err);
       } else {

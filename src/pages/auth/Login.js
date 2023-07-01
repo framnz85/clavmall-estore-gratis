@@ -64,8 +64,8 @@ const Login = ({ from = "" }) => {
           name="normal_login"
           className="login-form"
           initialValues={{
-            email: "clavmall.85@gmail.com",
-            password: "Ejccoc@1204",
+            email: "",
+            password: "",
             remember: true,
           }}
           onFinish={onFinish}
