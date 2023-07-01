@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { ApartmentOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 import AdminNav from "../../../components/navigation/AdminNav";
 import CategoryList from "../../../components/admin/CategoryList";
@@ -105,6 +106,16 @@ const CategoryCreate = () => {
           <hr />
 
           <CategoryList categories={categories} setCategories={setCategories} />
+
+          {categories.length > 0 && (
+            <div style={{ marginBottom: 50 }}>
+              You can only upload a maximum of {estoreSet.categoryLimit}{" "}
+              categories for this account,{" "}
+              <Link to={`/${estoreSet.slug}/admin/upgrade`}>
+                Increase Limit NOW
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>

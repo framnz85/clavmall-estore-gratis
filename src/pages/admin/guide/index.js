@@ -22,8 +22,9 @@ const Guide = () => {
           <div>Step 3. Add Products</div>
           <div>Step 4. Add Payments</div>
           <div>Step 5. Manage Home and Users</div>
-          <div>Step 6. Admin vs Personal Account</div>
-          <div>Step 7. Free and Paid Upgrades</div>
+          <div>Step 6. Setup Grocey, the AI Assistant</div>
+          <div>Step 7. Admin vs Personal Account</div>
+          <div>Step 8. Free and Paid Upgrades</div>
         </div>
       </div>
     </div>

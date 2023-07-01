@@ -7,6 +7,7 @@ import {
   LoadingOutlined,
 } from "@ant-design/icons";
 import { Popconfirm } from "antd";
+import { Link } from "react-router-dom";
 
 import AdminNav from "../../components/navigation/AdminNav";
 import Alerts from "../../components/common/Alerts";
@@ -87,6 +88,17 @@ const ManageUser = () => {
                 )}
               </div>
             ))}
+
+          {users.length > 1 && (
+            <div style={{ marginBottom: 50 }}>
+              <br />
+              You can only upload a maximum of {estoreSet.categoryLimit}{" "}
+              categories for this account,{" "}
+              <Link to={`/${estoreSet.slug}/admin/upgrade`}>
+                Increase Limit NOW
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>

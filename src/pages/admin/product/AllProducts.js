@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { Button } from "antd";
+import { Link } from "react-router-dom";
 
 import AdminNav from "../../../components/navigation/AdminNav";
 import ProdShowCards from "../../../components/admin/ProdShowCards";
@@ -105,7 +106,7 @@ const AllProducts = () => {
             setLoading={setLoading}
           />
 
-          {values.products.length === 0 && (
+          {values.products.length === 0 ? (
             <div align="center">
               <Button
                 type="primary"
@@ -113,10 +114,21 @@ const AllProducts = () => {
                 className="login-form-button"
                 style={{ width: 250 }}
                 onClick={handleLoadInitProducts}
-                disabled={loading}
+                disabled={
+                  loading ||
+                  (user && user.role === "admin" && !user.emailConfirm)
+                }
               >
                 Load Initial Products
               </Button>
+            </div>
+          ) : (
+            <div style={{ marginBottom: 50 }}>
+              You can only upload a maximum of {estoreSet.productLimit} products
+              for this account,{" "}
+              <Link to={`/${estoreSet.slug}/admin/upgrade`}>
+                Increase Limit NOW
+              </Link>
             </div>
           )}
         </div>

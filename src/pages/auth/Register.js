@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Select } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -14,6 +14,8 @@ import { createNewUser } from "../../functions/user";
 const Register = ({ from = "" }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const refid = searchParams.get("refid");
 
   const [countries, setCountries] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -43,7 +45,12 @@ const Register = ({ from = "" }) => {
         if (res.data.err) {
           toast.error(res.data.err);
         } else {
-          handleCreateUser(res.data, { ...values, role: "admin" });
+          handleCreateUser(
+            res.data,
+            refid
+              ? { ...values, role: "admin", refid }
+              : { ...values, role: "admin" }
+          );
           dispatch(estoreDet(res.data));
           localStorage.setItem("estore", JSON.stringify(res.data));
         }
@@ -218,6 +225,12 @@ const Register = ({ from = "" }) => {
                 placeholder="Select Country"
               />
             </Form.Item>
+          )}
+          {refid && (
+            <>
+              <div>Referred by: {refid}</div>
+              <br />
+            </>
           )}
           <Form.Item>
             <Button
