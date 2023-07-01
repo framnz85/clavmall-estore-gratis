@@ -13,6 +13,7 @@ import {
 import { useSelector } from "react-redux";
 
 import SearchHead from "./SearchHead";
+import Categories from "./Categories";
 
 const Header = () => {
   const cart = useSelector((state) => state.cart);
@@ -53,6 +54,7 @@ const Header = () => {
       style={menuStyle.mainContainer}
     >
       <BrowserView className="d-flex flex-row">
+        <Categories />
         <div className="p-3 mr-3">
           <Link to={`/${estoreSet.slug}`} style={menuStyle.headerStyle}>
             <HomeOutlined /> Home

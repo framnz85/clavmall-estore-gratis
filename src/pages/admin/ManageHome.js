@@ -24,6 +24,8 @@ const initialState = {
   estoreChange: 0,
   delfee: "",
   deltime: "",
+  delloc: "",
+  openaiAPI: "",
 };
 
 const ManageHome = () => {
@@ -78,9 +80,7 @@ const ManageHome = () => {
         <div className="col-md-10 bg-white mt-3 mb-5">
           <h4 style={{ margin: "20px 0" }}>Manage Home</h4>
           <hr />
-
           <Alerts />
-
           <div className="p-3">
             <h6 style={{ fontWeight: "bold" }}>Website ID: </h6>
             <h6>{values._id}</h6>
@@ -120,7 +120,32 @@ const ManageHome = () => {
                 edit: false,
               }}
             />
+            <InputText
+              inputProperty={{
+                name: "delloc",
+                label: "Delivery Location (separated w/ comma)",
+                onChange: (e) =>
+                  setValues({ ...values, delloc: e.target.value }),
+                value: values.delloc,
+                disabled: loading,
+                show: true,
+                edit: false,
+              }}
+            />
+            <InputText
+              inputProperty={{
+                name: "openaiAPI",
+                label: "Openai API",
+                onChange: (e) =>
+                  setValues({ ...values, openaiAPI: e.target.value }),
+                value: values.openaiAPI,
+                disabled: loading,
+                show: true,
+                edit: false,
+              }}
+            />
           </div>
+
           <Button
             onClick={handleSubmit}
             type="primary"

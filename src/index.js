@@ -8,6 +8,7 @@ import store from "./reducers/store";
 
 import "./cssfiles/antd.css";
 import "./cssfiles/index.css";
+import "./cssfiles/chat.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

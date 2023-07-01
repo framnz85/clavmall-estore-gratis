@@ -4,6 +4,7 @@ import { UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Select } from "antd";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { isMobile } from "react-device-detect";
 
 import { getPayments } from "../../functions/payment";
 import { saveCartOrder } from "../../functions/order";
@@ -113,7 +114,7 @@ const CheckoutDetails = ({ delivery }) => {
             htmlType="submit"
             size="large"
             className="login-form-button"
-            style={{ width: 200 }}
+            style={{ width: isMobile ? "100%" : 200 }}
             disabled={loading}
           >
             Checkout Order

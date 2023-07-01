@@ -17,6 +17,14 @@ export const getSingleProduct = async (estoreid, slug) =>
     },
   });
 
+export const getInitProducts = async (estoreid, authToken) =>
+  await axios.get(process.env.REACT_APP_API + "/gratis/init-product", {
+    headers: {
+      authToken,
+      estoreid,
+    },
+  });
+
 export const getAdminProducts = async (
   estoreid,
   authToken,
@@ -77,6 +85,17 @@ export const addProduct = async (estoreid, values, authToken) =>
     },
   });
 
+export const getSearchedProducts = async (estoreid, values) =>
+  await axios.post(
+    process.env.REACT_APP_API + "/gratis/search-product",
+    values,
+    {
+      headers: {
+        estoreid,
+      },
+    }
+  );
+
 export const handleProductUpdate = async (
   estoreid,
   prodid,
@@ -86,6 +105,17 @@ export const handleProductUpdate = async (
   await axios.put(
     process.env.REACT_APP_API + "/gratis/update-product/" + prodid,
     values,
+    {
+      headers: {
+        authToken,
+        estoreid,
+      },
+    }
+  );
+
+export const deleteProduct = async (estoreid, prodid, authToken) =>
+  await axios.delete(
+    process.env.REACT_APP_API + "/gratis/delete-product/" + prodid,
     {
       headers: {
         authToken,

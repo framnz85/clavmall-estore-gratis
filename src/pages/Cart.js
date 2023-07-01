@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import CartProductTable from "../components/checkout/CartProductTable";
 import SummaryProducts from "../components/checkout/SummaryProducts";
 import SummaryCompute from "../components/checkout/SummaryCompute";
+import CartButton from "../components/navigation/CartButton";
 import Alerts from "../components/common/Alerts";
 
 import { updateCart } from "../functions/order";
@@ -132,6 +133,10 @@ const Cart = () => {
               </Link>
             </>
           )}
+          <CartButton
+            handleCartOrder={handleCartOrder}
+            cartCalculation={cartCalculation}
+          />
         </div>
       </div>
     </div>

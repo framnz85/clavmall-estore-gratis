@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Popconfirm } from "antd";
 
 import ImageShow from "../common/ImageShow";
 
@@ -42,10 +43,15 @@ const AllProductsCard = ({ product, handleRemove, canEdit }) => {
               >
                 <EditOutlined className="text-secondary" />
               </Link>{" "}
-              <DeleteOutlined
-                className="text-danger"
-                onClick={() => handleRemove(slug, title, images)}
-              />
+              <Popconfirm
+                title="Delete this product?"
+                description="Are you sure to delete this product?"
+                okText="Yes"
+                cancelText="No"
+                onConfirm={() => handleRemove({ prodid: _id, title })}
+              >
+                <DeleteOutlined style={{ color: "red" }} />
+              </Popconfirm>
             </>
           ) : (
             <>

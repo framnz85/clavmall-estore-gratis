@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { Button } from "antd";
 
 import AdminNav from "../../../components/navigation/AdminNav";
 import ProdShowCards from "../../../components/admin/ProdShowCards";
 import InputSearch from "../../../components/common/InputSearch";
 import Alerts from "../../../components/common/Alerts";
 
-import { getAdminProducts } from "../../../functions/product";
+import { getAdminProducts, getInitProducts } from "../../../functions/product";
 
 const initialState = {
   products: [],
@@ -64,6 +65,17 @@ const AllProducts = () => {
     loadProducts();
   };
 
+  const handleLoadInitProducts = () => {
+    getInitProducts(estoreSet._id, user.token).then((res) => {
+      if (res.data.err) {
+        toast.error(res.data.err);
+      } else {
+        loadProducts();
+      }
+      setLoading(false);
+    });
+  };
+
   return (
     <div className="container">
       <div className="row">
@@ -92,6 +104,21 @@ const AllProducts = () => {
             loading={loading}
             setLoading={setLoading}
           />
+
+          {values.products.length === 0 && (
+            <div align="center">
+              <Button
+                type="primary"
+                size="large"
+                className="login-form-button"
+                style={{ width: 250 }}
+                onClick={handleLoadInitProducts}
+                disabled={loading}
+              >
+                Load Initial Products
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>

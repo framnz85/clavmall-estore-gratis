@@ -6,6 +6,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import ImagesShow from "../common/ImagesShow";
 import ProductListItems from "./ProductListItems";
 import AddToCart from "../modal/AddToCart";
+import BuyButton from "../navigation/BuyButton";
 
 import { storeToCart } from "../../reducers/cartSlice";
 import { updateCart } from "../../functions/order";
@@ -89,6 +90,7 @@ const SingleProduct = ({ product }) => {
         addToCart={addToCart}
         setAddToCart={setAddToCart}
       />
+      <BuyButton handleAddToCart={handleAddToCart} />
     </>
   );
 };

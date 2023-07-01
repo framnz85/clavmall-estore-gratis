@@ -1,14 +1,31 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Pagination } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
+import { toast } from "react-toastify";
 
 import AdminProdCard from "../cards/AdminProdCard";
+
+import { deleteProduct } from "../../functions/product";
 
 const ProdShowCards = ({ values, setValues, loading }) => {
   const { products, itemsCount, pageSize, currentPage } = values;
 
-  const handleRemove = () => {
-    //
+  const user = useSelector((state) => state.user);
+  const estoreSet = useSelector((state) => state.estoreSet);
+
+  const handleRemove = (product) => {
+    deleteProduct(estoreSet._id, product.prodid, user.token).then((res) => {
+      if (res.data.err) {
+        toast.error(res.data.err);
+      } else {
+        setValues({
+          ...values,
+          products: products.filter((prod) => prod._id !== product.prodid),
+        });
+        toast.error(`${product.title} has been deleted!`);
+      }
+    });
   };
 
   return (

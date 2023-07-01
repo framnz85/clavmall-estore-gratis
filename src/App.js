@@ -8,6 +8,8 @@ import Header from "./components/navigation/Header";
 import AdminRoute from "./components/routes/AdminRoute";
 import UserRoute from "./components/routes/UserRoute";
 import NoUserRoute from "./components/routes/NoUserRoute";
+import TabBottom from "./components/navigation/TabBottom";
+import ChatComponent from "./chat/ChatComponent";
 
 import { getEstore } from "./functions/estore";
 import { getUserDetails } from "./functions/user";
@@ -139,6 +141,15 @@ const App = () => {
           <Route
             exact
             path="/:slug/shop"
+            element={
+              <NoUserRoute setSlug={setSlug} estore={estore}>
+                <Shop />
+              </NoUserRoute>
+            }
+          />
+          <Route
+            exact
+            path="/:slug/shop/:catSlug"
             element={
               <NoUserRoute setSlug={setSlug} estore={estore}>
                 <Shop />
@@ -309,7 +320,9 @@ const App = () => {
           />
         </Routes>
       </Suspense>
+      <TabBottom />
       <ToastContainer />
+      <ChatComponent />
     </>
   );
 };

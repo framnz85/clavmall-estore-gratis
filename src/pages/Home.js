@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { Button } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
+import { isMobile } from "react-device-detect";
 
 import LoadingCard from "../components/cards/LoadingCard";
 import ProductCard from "../components/cards/ProductCard";
@@ -44,7 +45,11 @@ const Home = () => {
 
   return (
     <div style={{ paddingBottom: 30 }}>
-      <div className="alert alert-success text-danger h3 font-weight-bold text-center p-2 mb-4 mt-4">
+      <div
+        className={`alert alert-success text-danger ${
+          isMobile ? "h5" : "h3"
+        } font-weight-bold text-center p-2 ${isMobile ? "mt-4" : "mb-4 mt-4"}`}
+      >
         Welcome to {estoreSet.name}
       </div>
 
