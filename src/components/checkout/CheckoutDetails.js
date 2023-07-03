@@ -9,6 +9,7 @@ import { isMobile } from "react-device-detect";
 import { getPayments } from "../../functions/payment";
 import { saveCartOrder } from "../../functions/order";
 import { emptyCart } from "../../reducers/cartSlice";
+import { storePayments } from "../../reducers/paymentSlice";
 
 const { TextArea } = Input;
 
@@ -17,10 +18,10 @@ const CheckoutDetails = ({ delivery }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [payments, setPayments] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const user = useSelector((state) => state.user);
+  const payments = useSelector((state) => state.payments);
   const estoreSet = useSelector((state) => state.estoreSet);
 
   useEffect(() => {
@@ -29,15 +30,20 @@ const CheckoutDetails = ({ delivery }) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadPayments = () => {
-    setLoading(true);
-    getPayments(estoreSet._id, user.token).then((res) => {
-      if (res.data.err) {
-        toast.error(res.data.err);
-      } else {
-        setPayments(res.data);
-      }
-      setLoading(false);
-    });
+    if (localStorage.getItem("payments")) {
+      dispatch(storePayments(JSON.parse(localStorage.getItem("payments"))));
+    } else {
+      setLoading(true);
+      getPayments(estoreSet._id, user.token).then((res) => {
+        if (res.data.err) {
+          toast.error(res.data.err);
+        } else {
+          dispatch(storePayments(res.data));
+          localStorage.setItem("payments", JSON.stringify(res.data));
+        }
+        setLoading(false);
+      });
+    }
   };
 
   const onFinish = (values) => {

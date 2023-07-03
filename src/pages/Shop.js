@@ -26,20 +26,25 @@ const Shop = () => {
   const estoreSet = useSelector((state) => state.estoreSet);
 
   useEffect(() => {
-    if (text || catSlug) {
-      searchProducts({ text, catSlug }, 1);
-    } else {
-      loadProducts(1);
+    if (estoreSet && estoreSet._id) {
+      document.title = "Shop at " + estoreSet.name;
+      if (text || catSlug) {
+        searchProducts({ text, catSlug }, 1);
+      } else {
+        loadProducts(1);
+      }
     }
   }, [text, catSlug]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    setSearchProd(products);
+    if (estoreSet && estoreSet._id) {
+      setSearchProd(products);
+    }
   }, [products]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadProducts = (nextPage) => {
     setPage(nextPage);
-    const maxRandNum = nextPage === 1 ? 60 : 60 + nextPage * 30;
+    const maxRandNum = nextPage === 1 ? 40 : 40 + nextPage * 30;
     if (products.length < maxRandNum) {
       setLoading(true);
       getRandomProducts(estoreSet._id, nextPage === 1 ? 60 : 30).then((res) => {

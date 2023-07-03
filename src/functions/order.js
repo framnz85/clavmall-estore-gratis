@@ -71,6 +71,17 @@ export const changeOrderStatus = async (estoreid, values, authToken) =>
     }
   );
 
+export const deleteAdminOrder = async (estoreid, orderid, authToken) =>
+  await axios.delete(
+    process.env.REACT_APP_API + "/gratis/delete-admin-order/" + orderid,
+    {
+      headers: {
+        authToken,
+        estoreid,
+      },
+    }
+  );
+
 export const deleteOrder = async (estoreid, orderid, authToken) =>
   await axios.delete(
     process.env.REACT_APP_API + "/gratis/delete-order/" + orderid,

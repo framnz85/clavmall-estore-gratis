@@ -9,6 +9,7 @@ import {
   uploadFileImage,
   removeFileImage,
   handleProductUpdate,
+  checkImageUser,
 } from "../../functions/product";
 
 const UploadImage = ({ images, setImages, edit = false, prodid = "" }) => {
@@ -98,18 +99,36 @@ const UploadImage = ({ images, setImages, edit = false, prodid = "" }) => {
       const uploadedImages = images.filter(
         (img) => img.public_id !== value.uid
       );
-      removeFileImage(value.uid, estoreSet, user.token).then((res) => {
-        if (res.data.err) {
-          toast.error(res.data.err);
-          if (res.data.noexist) {
-            setImages(uploadedImages);
-            handleProductUpdate(
-              estoreSet._id,
-              prodid,
-              { images: uploadedImages },
-              user.token
-            );
-          }
+      checkImageUser(
+        value.uid,
+        estoreSet._id,
+        process.env.REACT_APP_ESTORE_DEFAULT_ID,
+        user.token
+      ).then(async (res) => {
+        console.log(res.data.delete);
+        if (res.data.delete) {
+          removeFileImage(value.uid, estoreSet, user.token).then((res) => {
+            if (res.data.err) {
+              toast.error(res.data.err);
+              if (res.data.noexist) {
+                setImages(uploadedImages);
+                handleProductUpdate(
+                  estoreSet._id,
+                  prodid,
+                  { images: uploadedImages },
+                  user.token
+                );
+              }
+            } else {
+              setImages(uploadedImages);
+              handleProductUpdate(
+                estoreSet._id,
+                prodid,
+                { images: uploadedImages },
+                user.token
+              );
+            }
+          });
         } else {
           setImages(uploadedImages);
           handleProductUpdate(

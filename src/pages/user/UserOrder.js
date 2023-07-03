@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 import UserNav from "../../components/navigation/UserNav";
@@ -7,9 +7,11 @@ import OrderTable from "../../components/user/OrderTable";
 import Alerts from "../../components/common/Alerts";
 
 import { getUserOrders } from "../../functions/order";
+import { storeOrders, addMyOrders } from "../../reducers/orderSlice";
 
 const UserOrder = () => {
-  const [orders, setOrders] = useState([]);
+  const dispatch = useDispatch();
+
   const [loading, setLoading] = useState(false);
 
   const user = useSelector((state) => state.user);
@@ -21,12 +23,26 @@ const UserOrder = () => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadUserOrders = () => {
-    setLoading(true);
+    if (localStorage.getItem("orders")) {
+      const localOrders = JSON.parse(localStorage.getItem("orders"));
+      const myOrders = localOrders.filter(
+        (ord) => ord.orderedBy._id === user._id
+      );
+      dispatch(addMyOrders(myOrders));
+      execUserOrders();
+    } else {
+      setLoading(true);
+      execUserOrders();
+    }
+  };
+
+  const execUserOrders = () => {
     getUserOrders(estoreSet._id, user.token).then((res) => {
       if (res.data.err) {
         toast.error(res.data.err);
       } else {
-        setOrders(res.data);
+        dispatch(storeOrders(res.data));
+        localStorage.setItem("orders", JSON.stringify(res.data));
       }
       setLoading(false);
     });
@@ -44,7 +60,7 @@ const UserOrder = () => {
 
           <Alerts />
 
-          <OrderTable orders={orders} setOrders={setOrders} loading={loading} />
+          <OrderTable loading={loading} />
         </div>
       </div>
     </div>

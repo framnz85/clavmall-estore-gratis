@@ -77,6 +77,23 @@ export const removeFileImage = async (public_id, estore, authToken) => {
   );
 };
 
+export const checkImageUser = async (
+  public_id,
+  estoreid,
+  defaultestore,
+  authToken
+) => {
+  return await axios.get(
+    `${process.env.REACT_APP_API}/gratis/check-image-user/${public_id}/${defaultestore}`,
+    {
+      headers: {
+        authToken,
+        estoreid,
+      },
+    }
+  );
+};
+
 export const addProduct = async (estoreid, values, authToken) =>
   await axios.post(process.env.REACT_APP_API + "/gratis/add-product", values, {
     headers: {

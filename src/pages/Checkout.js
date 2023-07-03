@@ -21,7 +21,7 @@ const Checkout = () => {
   const cart = useSelector((state) => state.cart);
 
   useEffect(() => {
-    document.title = "Fill Cart at " + estoreSet.name;
+    document.title = "Checkout at " + estoreSet.name;
     calculateCart();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

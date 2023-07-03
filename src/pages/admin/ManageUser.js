@@ -22,6 +22,7 @@ const ManageUser = () => {
   const estoreSet = useSelector((state) => state.estoreSet);
 
   useEffect(() => {
+    document.title = "Users | " + estoreSet.name;
     loadAllUsers();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

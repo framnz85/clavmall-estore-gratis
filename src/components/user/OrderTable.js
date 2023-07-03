@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import NumberFormat from "react-number-format";
 import { Link } from "react-router-dom";
 import { Popconfirm } from "antd";
@@ -15,8 +15,12 @@ import TableHeader from "../common/TableHeader";
 import TableBody from "../common/TableBody";
 
 import { deleteOrder } from "../../functions/order";
+import { removeOrder } from "../../reducers/orderSlice";
 
-const OrderTable = ({ orders, setOrders, loading }) => {
+const OrderTable = ({ loading }) => {
+  const dispatch = useDispatch();
+
+  const orders = useSelector((state) => state.orders);
   const user = useSelector((state) => state.user);
   const estoreSet = useSelector((state) => state.estoreSet);
 
@@ -25,7 +29,9 @@ const OrderTable = ({ orders, setOrders, loading }) => {
       if (res.data.err) {
         toast.error(res.data.err);
       } else {
-        setOrders(orders.filter((ord) => ord._id !== order._id));
+        const remainingOrders = orders.filter((ord) => ord._id !== order._id);
+        dispatch(removeOrder(remainingOrders));
+        localStorage.setItem("orders", JSON.stringify(remainingOrders));
         toast.error(`Order Code ${order.orderCode} was successfully deleted`);
       }
     });

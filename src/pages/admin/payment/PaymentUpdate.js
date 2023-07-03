@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { UserOutlined, BankOutlined, NumberOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
@@ -9,6 +9,9 @@ import AdminNav from "../../../components/navigation/AdminNav";
 import Alerts from "../../../components/common/Alerts";
 
 import { getPayment, updatePayment } from "../../../functions/payment";
+import { updateStorePayment } from "../../../reducers/paymentSlice";
+import { updateEstore } from "../../../functions/estore";
+import { estoreDet } from "../../../reducers/estoreSlice";
 
 const { TextArea } = Input;
 
@@ -21,6 +24,7 @@ const initialValues = {
 
 const PaymentCreate = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [form] = Form.useForm();
   const { payid } = useParams();
@@ -28,6 +32,7 @@ const PaymentCreate = () => {
   const [loading, setLoading] = useState(false);
 
   const user = useSelector((state) => state.user);
+  const payments = useSelector((state) => state.payments);
   const estoreSet = useSelector((state) => state.estoreSet);
 
   useEffect(() => {
@@ -35,13 +40,18 @@ const PaymentCreate = () => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadPayment = () => {
-    getPayment(payid, estoreSet._id, user.token).then((res) => {
-      if (res.data.err) {
-        toast.error(res.data.err);
-      } else {
-        form.setFieldsValue(res.data);
-      }
-    });
+    const checkPayment = payments.find((pay) => pay._id === payid);
+    if (checkPayment) {
+      form.setFieldsValue(checkPayment);
+    } else {
+      getPayment(payid, estoreSet._id, user.token).then((res) => {
+        if (res.data.err) {
+          toast.error(res.data.err);
+        } else {
+          form.setFieldsValue(res.data);
+        }
+      });
+    }
   };
 
   const onFinish = async (values) => {
@@ -50,9 +60,31 @@ const PaymentCreate = () => {
       if (res.data.err) {
         toast.error(res.data.err);
       } else {
+        const updatedPayments = payments.map((pay) => {
+          if (pay._id === payid) {
+            return res.data;
+          } else {
+            return pay;
+          }
+        });
+        dispatch(updateStorePayment(updatedPayments));
+        localStorage.setItem("payments", JSON.stringify(updatedPayments));
         toast.success("Payment has been successfully updated");
-        setLoading(false);
+        navigate(`/${estoreSet.lug}/admin/payment`);
+        updateEstore(
+          estoreSet._id,
+          { paymentChange: parseInt(estoreSet.paymentChange) + 1 },
+          user.token
+        ).then((res) => {
+          if (res.data.err) {
+            toast.error(res.data.err);
+          } else {
+            dispatch(estoreDet(res.data));
+            localStorage.setItem("estore", JSON.stringify(res.data));
+          }
+        });
       }
+      setLoading(false);
     });
   };
 

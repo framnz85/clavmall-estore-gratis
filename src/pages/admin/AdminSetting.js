@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Button } from "antd";
+import { Button, Switch } from "antd";
 import { toast } from "react-toastify";
 
 import AdminNav from "../../components/navigation/AdminNav";
@@ -28,7 +28,7 @@ const initialState = {
   openaiAPI: "",
 };
 
-const ManageHome = () => {
+const AdminSetting = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
@@ -38,6 +38,7 @@ const ManageHome = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    document.title = "Admin Settings | " + estoreSet.name;
     loadEstore();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -78,7 +79,7 @@ const ManageHome = () => {
         </div>
 
         <div className="col-md-10 bg-white mt-3 mb-5">
-          <h4 style={{ margin: "20px 0" }}>Manage Home</h4>
+          <h4 style={{ margin: "20px 0" }}>Admin Settings</h4>
           <hr />
           <Alerts />
           <div className="p-3">
@@ -158,10 +159,20 @@ const ManageHome = () => {
           >
             Save Setting
           </Button>
+          <b>Website Status</b>
+          <Switch
+            checked={values.status === "active"}
+            onChange={(checked) => {
+              setValues({ ...values, status: checked ? "active" : "pause" });
+              toast.warning("Make sure to click the Save Setting button");
+            }}
+            style={{ marginLeft: "10px" }}
+            disabled={values.status === "stop"}
+          />
         </div>
       </div>
     </div>
   );
 };
 
-export default ManageHome;
+export default AdminSetting;

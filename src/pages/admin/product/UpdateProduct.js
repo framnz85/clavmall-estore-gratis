@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   AccountBookOutlined,
   PlusSquareOutlined,
@@ -18,10 +18,13 @@ import {
   getSingleProduct,
   handleProductUpdate,
 } from "../../../functions/product";
+import { estoreDet } from "../../../reducers/estoreSlice";
+import { updateEstore } from "../../../functions/estore";
 
 const UpdateProduct = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { slug } = useParams();
 
   const user = useSelector((state) => state.user);
@@ -82,6 +85,18 @@ const UpdateProduct = () => {
       } else {
         toast.success("Product successfully updated");
         navigate(`/${estoreSet.slug}/admin/products`);
+        updateEstore(
+          estoreSet._id,
+          { productChange: parseInt(estoreSet.productChange) + 1 },
+          user.token
+        ).then((res) => {
+          if (res.data.err) {
+            toast.error(res.data.err);
+          } else {
+            dispatch(estoreDet(res.data));
+            localStorage.setItem("estore", JSON.stringify(res.data));
+          }
+        });
       }
       setLoading(false);
     });

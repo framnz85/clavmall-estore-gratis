@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   AccountBookOutlined,
   PlusSquareOutlined,
@@ -15,32 +15,42 @@ import Alerts from "../../../components/common/Alerts";
 
 import { getCategories } from "../../../functions/category";
 import { uploadFileImage, addProduct } from "../../../functions/product";
+import { storeCategories } from "../../../reducers/categorySlice";
+import { estoreDet } from "../../../reducers/estoreSlice";
+import { updateEstore } from "../../../functions/estore";
 
 const CreateProduct = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
+  const categories = useSelector((state) => state.categories);
   const estoreSet = useSelector((state) => state.estoreSet);
 
-  const [categories, setCategories] = useState([]);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    document.title = "Create Product | " + estoreSet.name;
     loadCategories();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadCategories = () => {
-    setLoading(true);
-    getCategories(estoreSet._id).then((res) => {
-      if (res.data.err) {
-        toast.error(res.data.err);
-      } else {
-        setCategories(res.data);
-      }
-      setLoading(false);
-    });
+    if (localStorage.getItem("categories")) {
+      dispatch(storeCategories(JSON.parse(localStorage.getItem("categories"))));
+    } else {
+      setLoading(true);
+      getCategories(estoreSet._id).then((res) => {
+        if (res.data.err) {
+          toast.error(res.data.err);
+        } else {
+          dispatch(storeCategories(res.data));
+          localStorage.setItem("categories", JSON.stringify(res.data));
+        }
+        setLoading(false);
+      });
+    }
   };
 
   const onFinish = async (values) => {
@@ -64,6 +74,18 @@ const CreateProduct = () => {
       } else {
         toast.success("Product successfully created");
         navigate(`/${estoreSet.slug}/admin/products`);
+        updateEstore(
+          estoreSet._id,
+          { productChange: parseInt(estoreSet.productChange) + 1 },
+          user.token
+        ).then((res) => {
+          if (res.data.err) {
+            toast.error(res.data.err);
+          } else {
+            dispatch(estoreDet(res.data));
+            localStorage.setItem("estore", JSON.stringify(res.data));
+          }
+        });
       }
       setLoading(false);
     });

@@ -48,7 +48,7 @@ const AllProductsCard = ({ product, handleRemove, canEdit }) => {
                 description="Are you sure to delete this product?"
                 okText="Yes"
                 cancelText="No"
-                onConfirm={() => handleRemove({ prodid: _id, title })}
+                onConfirm={() => handleRemove({ prodid: _id, title, images })}
               >
                 <DeleteOutlined style={{ color: "red" }} />
               </Popconfirm>

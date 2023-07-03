@@ -15,9 +15,12 @@ export const productSlice = createSlice({
     storeProducts: (state, action) => {
       return getUnique(state, action.payload);
     },
+    removeStoreProducts: (state, action) => {
+      return action.payload;
+    },
   },
 });
 
-export const { storeProducts } = productSlice.actions;
+export const { storeProducts, removeStoreProducts } = productSlice.actions;
 
 export default productSlice.reducer;

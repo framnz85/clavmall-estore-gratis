@@ -11,11 +11,14 @@ import NoUserRoute from "./components/routes/NoUserRoute";
 import TabBottom from "./components/navigation/TabBottom";
 import ChatComponent from "./chat/ChatComponent";
 
-import { getEstore } from "./functions/estore";
+import { getEstore, getEstoreCounters } from "./functions/estore";
 import { getUserDetails } from "./functions/user";
 import { loginUser, logoutUser } from "./reducers/userSlice";
 import { estoreDet } from "./reducers/estoreSlice";
 import { emptyCart } from "./reducers/cartSlice";
+import { removeStoreCategory } from "./reducers/categorySlice";
+import { removeStoreProducts } from "./reducers/productSlice";
+import { removeStorePayment } from "./reducers/paymentSlice";
 
 import "react-toastify/dist/ReactToastify.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -48,7 +51,7 @@ const AllProducts = lazy(() => import("./pages/admin/product/AllProducts"));
 const PaymentCreate = lazy(() => import("./pages/admin/payment/PaymentCreate"));
 const PaymentUpdate = lazy(() => import("./pages/admin/payment/PaymentUpdate"));
 const ManageUser = lazy(() => import("./pages/admin/ManageUser"));
-const ManageHome = lazy(() => import("./pages/admin/ManageHome"));
+const AdminSetting = lazy(() => import("./pages/admin/AdminSetting"));
 const Upgrade = lazy(() => import("./pages/admin/Upgrades"));
 const Guide = lazy(() => import("./pages/admin/guide"));
 
@@ -67,9 +70,12 @@ const App = () => {
 
   useEffect(() => {
     if (slug) {
-      loadEstore();
+      if (slug !== estoreLocal.slug) loadEstore();
     } else if (estoreLocal && estoreLocal._id) {
       setEstore(estoreLocal);
+      if (estoreLocal && estoreLocal._id) {
+        checkEstoreCounters();
+      }
     }
   }, [slug]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -83,6 +89,37 @@ const App = () => {
           dispatch(estoreDet(res.data));
           localStorage.setItem("estore", JSON.stringify(res.data));
         }
+      }
+    });
+  };
+
+  const checkEstoreCounters = () => {
+    getEstoreCounters(estoreLocal._id).then((res) => {
+      if (res.data && res.data.err) {
+        toast.error(res.data.err);
+      } else {
+        let estoreObj = {};
+        if (estoreLocal.categoryChange !== res.data.categoryChange) {
+          dispatch(removeStoreCategory([]));
+          localStorage.removeItem("categories");
+          estoreObj = { ...estoreObj, categoryChange: res.data.categoryChange };
+        }
+        if (estoreLocal.productChange !== res.data.productChange) {
+          dispatch(removeStoreProducts([]));
+          localStorage.removeItem("products");
+          estoreObj = { ...estoreObj, productChange: res.data.productChange };
+        }
+        if (estoreLocal.paymentChange !== res.data.paymentChange) {
+          dispatch(removeStorePayment([]));
+          localStorage.removeItem("payments");
+          estoreObj = { ...estoreObj, paymentChange: res.data.paymentChange };
+        }
+        setEstore({ ...estoreLocal, ...estoreObj });
+        dispatch(estoreDet({ ...estoreLocal, ...estoreObj }));
+        localStorage.setItem(
+          "estore",
+          JSON.stringify({ ...estoreLocal, ...estoreObj })
+        );
       }
     });
   };
@@ -313,10 +350,10 @@ const App = () => {
           />
           <Route
             exact
-            path="/:slug/admin/managehome"
+            path="/:slug/admin/setting"
             element={
               <AdminRoute>
-                <ManageHome setSlug={setSlug} estore={estore} />
+                <AdminSetting setSlug={setSlug} estore={estore} />
               </AdminRoute>
             }
           />

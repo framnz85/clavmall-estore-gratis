@@ -34,7 +34,7 @@ const Product = () => {
 
   const loadProducts = (nextPage) => {
     setPage(nextPage);
-    const maxRandNum = nextPage === 1 ? 60 : 60 + nextPage * 30;
+    const maxRandNum = nextPage === 1 ? 40 : 40 + nextPage * 30;
     if (products.length < maxRandNum) {
       setLoading(true);
       getRandomProducts(estoreSet._id, nextPage === 1 ? 60 : 30).then((res) => {

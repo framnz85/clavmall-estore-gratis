@@ -10,7 +10,7 @@ import {
   CodepenOutlined,
   CreditCardOutlined,
   TeamOutlined,
-  HomeOutlined,
+  ControlOutlined,
   UserOutlined,
   ToolOutlined,
   LogoutOutlined,
@@ -20,6 +20,10 @@ import { isMobile } from "react-device-detect";
 
 import { logoutUser } from "../../reducers/userSlice";
 import { emptyCart } from "../../reducers/cartSlice";
+import { removeStoreCategory } from "../../reducers/categorySlice";
+import { removeOrder } from "../../reducers/orderSlice";
+import { removeStorePayment } from "../../reducers/paymentSlice";
+import { removeStoreProducts } from "../../reducers/productSlice";
 
 const AdminNav = () => {
   const dispatch = useDispatch();
@@ -35,7 +39,10 @@ const AdminNav = () => {
     localStorage.clear();
     dispatch(logoutUser());
     dispatch(emptyCart());
-    localStorage.removeItem("cart");
+    dispatch(removeStoreCategory([]));
+    dispatch(removeOrder([]));
+    dispatch(removeStorePayment([]));
+    dispatch(removeStoreProducts([]));
     localStorage.setItem("estore", JSON.stringify(estoreSet));
     toast.success("Successfully logged out!");
     navigate(`/${estoreSet.slug}/auth`);
@@ -76,13 +83,13 @@ const AdminNav = () => {
       key: "10",
       href: `/${estoreSet.slug}/admin/manageuser`,
       icon: <TeamOutlined />,
-      label: "Manage Users",
+      label: "Users",
     },
     {
       key: "11",
-      href: `/${estoreSet.slug}/admin/managehome`,
-      icon: <HomeOutlined />,
-      label: "Manage Home",
+      href: `/${estoreSet.slug}/admin/setting`,
+      icon: <ControlOutlined />,
+      label: "Settings",
     },
     {
       key: "12",

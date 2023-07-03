@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
   MenuOutlined,
@@ -11,6 +11,7 @@ import { isMobile } from "react-device-detect";
 import { toast } from "react-toastify";
 
 import { getCategories } from "../../functions/category";
+import { storeCategories } from "../../reducers/categorySlice";
 
 const initialCat = {
   page: 1,
@@ -20,11 +21,12 @@ const initialCat = {
 
 const Categories = () => {
   let navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const [categories, setCategories] = useState([]);
   const [showMenu, setShowMenu] = useState(isMobile ? false : true);
   const [catPage, setCatPage] = useState(initialCat);
 
+  const categories = useSelector((state) => state.categories);
   const estoreSet = useSelector((state) => state.estoreSet);
 
   useEffect(() => {
@@ -32,17 +34,20 @@ const Categories = () => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadCategories = () => {
-    getCategories(estoreSet._id).then((res) => {
-      if (res.data.err) {
-        toast.error(res.data.err);
-      } else {
-        setCategories(res.data);
-        setCatPage({
-          ...catPage,
-          totalPages: parseInt(res.data.length / catPage.pageCount) + 1,
-        });
-      }
-    });
+    if (!localStorage.getItem("categories")) {
+      getCategories(estoreSet._id).then((res) => {
+        if (res.data.err) {
+          toast.error(res.data.err);
+        } else {
+          dispatch(storeCategories(res.data));
+          localStorage.setItem("categories", JSON.stringify(res.data));
+          setCatPage({
+            ...catPage,
+            totalPages: parseInt(res.data.length / catPage.pageCount) + 1,
+          });
+        }
+      });
+    }
   };
 
   return (
@@ -77,7 +82,7 @@ const Categories = () => {
                 </div>
               </li>
               {categories &&
-                categories
+                [...categories]
                   .sort((a, b) => a.name - b.name)
                   .slice(
                     (catPage.page - 1) * catPage.pageCount,

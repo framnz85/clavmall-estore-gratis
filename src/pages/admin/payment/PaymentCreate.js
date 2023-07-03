@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { UserOutlined, BankOutlined, NumberOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import { toast } from "react-toastify";
@@ -9,6 +9,9 @@ import PaymentList from "../../../components/admin/PaymentList";
 import Alerts from "../../../components/common/Alerts";
 
 import { getPayments, addPayment } from "../../../functions/payment";
+import { storePayments, addStorePayment } from "../../../reducers/paymentSlice";
+import { updateEstore } from "../../../functions/estore";
+import { estoreDet } from "../../../reducers/estoreSlice";
 
 const { TextArea } = Input;
 
@@ -21,25 +24,34 @@ const initialValues = {
 
 const PaymentCreate = () => {
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
 
-  const [payments, setPayments] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const user = useSelector((state) => state.user);
+  const payments = useSelector((state) => state.payments);
   const estoreSet = useSelector((state) => state.estoreSet);
 
   useEffect(() => {
+    document.title = "Payments | " + estoreSet.name;
     loadPayments();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadPayments = () => {
-    getPayments(estoreSet._id, user.token).then((res) => {
-      if (res.data.err) {
-        toast.error(res.data.err);
-      } else {
-        setPayments(res.data);
-      }
-    });
+    if (localStorage.getItem("payments")) {
+      dispatch(storePayments(JSON.parse(localStorage.getItem("payments"))));
+    } else {
+      setLoading(true);
+      getPayments(estoreSet._id, user.token).then((res) => {
+        if (res.data.err) {
+          toast.error(res.data.err);
+        } else {
+          dispatch(storePayments(res.data));
+          localStorage.setItem("payments", JSON.stringify(res.data));
+        }
+        setLoading(false);
+      });
+    }
   };
 
   const onFinish = async (values) => {
@@ -48,9 +60,25 @@ const PaymentCreate = () => {
       if (res.data.err) {
         toast.error(res.data.err);
       } else {
+        dispatch(addStorePayment(res.data));
+        localStorage.setItem(
+          "payments",
+          JSON.stringify([...payments, res.data])
+        );
         form.setFieldsValue(initialValues);
-        setPayments([...payments, res.data]);
         setLoading(false);
+        updateEstore(
+          estoreSet._id,
+          { paymentChange: parseInt(estoreSet.paymentChange) + 1 },
+          user.token
+        ).then((res) => {
+          if (res.data.err) {
+            toast.error(res.data.err);
+          } else {
+            dispatch(estoreDet(res.data));
+            localStorage.setItem("estore", JSON.stringify(res.data));
+          }
+        });
       }
     });
   };
@@ -151,7 +179,7 @@ const PaymentCreate = () => {
           <h4 style={{ margin: "20px 0" }}>My Payments</h4>
           <hr />
 
-          <PaymentList payments={payments} setPayments={setPayments} />
+          <PaymentList />
           <br />
           <br />
         </div>

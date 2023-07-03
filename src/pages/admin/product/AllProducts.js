@@ -30,6 +30,7 @@ const AllProducts = () => {
   const estoreSet = useSelector((state) => state.estoreSet);
 
   useEffect(() => {
+    document.title = "Products | " + estoreSet.name;
     loadProducts();
   }, [values.currentPage, values.pageSize]); // eslint-disable-line react-hooks/exhaustive-deps
 

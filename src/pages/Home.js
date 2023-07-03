@@ -22,12 +22,15 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (estoreSet && estoreSet._id) loadProducts(1);
+    if (estoreSet && estoreSet._id) {
+      document.title = estoreSet.name;
+      loadProducts(1);
+    }
   }, [estoreSet]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadProducts = (nextPage) => {
     setPage(nextPage);
-    const maxRandNum = nextPage === 1 ? 60 : 60 + nextPage * 30;
+    const maxRandNum = nextPage === 1 ? 40 : 40 + nextPage * 30;
     if (products.length < maxRandNum) {
       setLoading(true);
       getRandomProducts(estoreSet._id, nextPage === 1 ? 60 : 30).then((res) => {

@@ -9,6 +9,9 @@ const Upgrades = () => {
   const [copied, setCopied] = useState("Copy to Clipboard");
 
   const user = useSelector((state) => state.user);
+  const estoreSet = useSelector((state) => state.estoreSet);
+
+  document.title = "Upgrades | " + estoreSet.name;
 
   const copyClipboard = (num) => {
     const copyText = document.getElementById("myInput" + num);
@@ -72,7 +75,7 @@ const Upgrades = () => {
             <Input.Group compact>
               <Input
                 style={{ width: "90%" }}
-                value={`${process.env.REACT_APP_LINK1}/?register=1&refid=${user._id}`}
+                value={`${process.env.REACT_APP_LINK2}/?register=1&refid=${user._id}`}
                 id="myInput2"
               />
               <Tooltip title={copied}>

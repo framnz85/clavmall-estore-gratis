@@ -24,6 +24,8 @@ const UserAccount = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  document.title = "My Account | " + estoreSet.name;
+
   const handleUpdateUser = (values) => {
     setLoading(true);
     updateUserDetails(estoreSet._id, values, user.token).then((res) => {

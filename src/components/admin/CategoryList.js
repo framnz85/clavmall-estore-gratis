@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Popconfirm } from "antd";
@@ -9,9 +9,15 @@ import TableHeader from "../common/TableHeader";
 import TableBody from "../common/TableBody";
 
 import { deleteCategory } from "../../functions/category";
+import { removeStoreCategory } from "../../reducers/categorySlice";
+import { updateEstore } from "../../functions/estore";
+import { estoreDet } from "../../reducers/estoreSlice";
 
-const CategoryList = ({ categories, setCategories }) => {
+const CategoryList = () => {
+  const dispatch = useDispatch();
+
   const user = useSelector((state) => state.user);
+  const categories = useSelector((state) => state.categories);
   const estoreSet = useSelector((state) => state.estoreSet);
 
   const columns = [
@@ -49,8 +55,24 @@ const CategoryList = ({ categories, setCategories }) => {
       if (res.data.err) {
         toast.error(res.data.err);
       } else {
-        setCategories(categories.filter((cat) => cat._id !== category._id));
+        const categoryRemaining = categories.filter(
+          (cat) => cat._id !== category._id
+        );
+        dispatch(removeStoreCategory(categoryRemaining));
+        localStorage.setItem("categories", JSON.stringify(categoryRemaining));
         toast.error(`${category.name} has been deleted!`);
+        updateEstore(
+          estoreSet._id,
+          { categoryChange: parseInt(estoreSet.categoryChange) + 1 },
+          user.token
+        ).then((res) => {
+          if (res.data.err) {
+            toast.error(res.data.err);
+          } else {
+            dispatch(estoreDet(res.data));
+            localStorage.setItem("estore", JSON.stringify(res.data));
+          }
+        });
       }
     });
   };

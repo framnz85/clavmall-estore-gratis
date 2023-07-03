@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ApartmentOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import { toast } from "react-toastify";
@@ -10,6 +10,12 @@ import CategoryList from "../../../components/admin/CategoryList";
 import Alerts from "../../../components/common/Alerts";
 
 import { getCategories, addCategory } from "../../../functions/category";
+import {
+  storeCategories,
+  addStoreCategory,
+} from "../../../reducers/categorySlice";
+import { updateEstore } from "../../../functions/estore";
+import { estoreDet } from "../../../reducers/estoreSlice";
 
 const initialValues = {
   name: "",
@@ -17,27 +23,34 @@ const initialValues = {
 
 const CategoryCreate = () => {
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
 
-  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const user = useSelector((state) => state.user);
+  const categories = useSelector((state) => state.categories);
   const estoreSet = useSelector((state) => state.estoreSet);
 
   useEffect(() => {
+    document.title = "Categories | " + estoreSet.name;
     loadCategories();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadCategories = () => {
-    setLoading(true);
-    getCategories(estoreSet._id).then((res) => {
-      if (res.data.err) {
-        toast.error(res.data.err);
-      } else {
-        setCategories(res.data);
-      }
-      setLoading(false);
-    });
+    if (localStorage.getItem("categories")) {
+      dispatch(storeCategories(JSON.parse(localStorage.getItem("categories"))));
+    } else {
+      setLoading(true);
+      getCategories(estoreSet._id).then((res) => {
+        if (res.data.err) {
+          toast.error(res.data.err);
+        } else {
+          dispatch(storeCategories(res.data));
+          localStorage.setItem("categories", JSON.stringify(res.data));
+        }
+        setLoading(false);
+      });
+    }
   };
 
   const onFinish = async (values) => {
@@ -46,9 +59,25 @@ const CategoryCreate = () => {
       if (res.data.err) {
         toast.error(res.data.err);
       } else {
+        dispatch(addStoreCategory(res.data));
+        localStorage.setItem(
+          "categories",
+          JSON.stringify([...categories, res.data])
+        );
         form.setFieldsValue(initialValues);
-        setCategories([...categories, res.data]);
         setLoading(false);
+        updateEstore(
+          estoreSet._id,
+          { categoryChange: parseInt(estoreSet.categoryChange) + 1 },
+          user.token
+        ).then((res) => {
+          if (res.data.err) {
+            toast.error(res.data.err);
+          } else {
+            dispatch(estoreDet(res.data));
+            localStorage.setItem("estore", JSON.stringify(res.data));
+          }
+        });
       }
     });
   };
@@ -105,7 +134,7 @@ const CategoryCreate = () => {
           <h4 style={{ margin: "20px 0" }}>My Categories</h4>
           <hr />
 
-          <CategoryList categories={categories} setCategories={setCategories} />
+          <CategoryList />
 
           {categories.length > 0 && (
             <div style={{ marginBottom: 50 }}>

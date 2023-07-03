@@ -13,6 +13,10 @@ import { isMobile } from "react-device-detect";
 
 import { logoutUser } from "../../reducers/userSlice";
 import { emptyCart } from "../../reducers/cartSlice";
+import { removeStoreCategory } from "../../reducers/categorySlice";
+import { removeOrder } from "../../reducers/orderSlice";
+import { removeStorePayment } from "../../reducers/paymentSlice";
+import { removeStoreProducts } from "../../reducers/productSlice";
 
 const UserNav = () => {
   const dispatch = useDispatch();
@@ -29,7 +33,10 @@ const UserNav = () => {
     localStorage.clear();
     dispatch(logoutUser());
     dispatch(emptyCart());
-    localStorage.removeItem("cart");
+    dispatch(removeStoreCategory([]));
+    dispatch(removeOrder([]));
+    dispatch(removeStorePayment([]));
+    dispatch(removeStoreProducts([]));
     localStorage.setItem("estore", JSON.stringify(estoreSet));
     toast.success("Successfully logged out!");
     navigate(`/${estoreSet.slug}/auth`);
