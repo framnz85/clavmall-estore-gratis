@@ -39,7 +39,7 @@ const ProdShowCards = ({ values, setValues, loading }) => {
               process.env.REACT_APP_ESTORE_DEFAULT_ID,
               user.token
             ).then(async (res) => {
-              if (res.data)
+              if (res.data.delete)
                 await removeFileImage(
                   product.images[i].public_id,
                   estoreSet._id,

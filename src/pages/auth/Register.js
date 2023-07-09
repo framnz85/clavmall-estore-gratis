@@ -41,7 +41,7 @@ const Register = ({ from = "" }) => {
     if (estoreSet && estoreSet._id && from === "header") {
       handleCreateUser(estoreSet, { ...values, role: "customer" });
     } else {
-      createEstore(values).then((res) => {
+      createEstore(refid ? { ...values, refid } : values).then((res) => {
         if (res.data.err) {
           toast.error(res.data.err);
         } else {

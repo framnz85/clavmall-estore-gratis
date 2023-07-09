@@ -4,6 +4,7 @@ import { Button, Checkbox, Form, Input } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
+import ReactPlayer from "react-player/vimeo";
 
 import { getUserToken } from "../../functions/auth";
 import { getUserDetails } from "../../functions/user";
@@ -54,6 +55,22 @@ const Login = ({ from = "" }) => {
   };
   return (
     <div className="not-found-container" style={{ marginTop: -80 }}>
+      {estoreSet && estoreSet._id && from !== "header" && (
+        <div
+          className="not-found-content"
+          style={{
+            marginRight: 15,
+            border: "1px solid #dedede",
+            padding: "21px",
+          }}
+        >
+          <ReactPlayer
+            url={`https://vimeo.com/841616427`}
+            width="650px"
+            controls={true}
+          />
+        </div>
+      )}
       <div className="not-found-content">
         {estoreSet && estoreSet._id && from === "header" ? (
           <h3>Login</h3>
@@ -112,9 +129,18 @@ const Login = ({ from = "" }) => {
               <Checkbox>Remember me</Checkbox>
             </Form.Item>
 
-            <Link className="login-form-forgot" to="/forgot">
-              Forgot password
-            </Link>
+            {estoreSet && estoreSet._id && from === "header" ? (
+              <Link
+                className="login-form-forgot"
+                to={`/${estoreSet.slug}/auth/?forgot=1`}
+              >
+                Forgot password
+              </Link>
+            ) : (
+              <Link className="login-form-forgot" to="/?forgot=1">
+                Forgot password
+              </Link>
+            )}
           </Form.Item>
 
           <Form.Item>
@@ -140,7 +166,7 @@ const Login = ({ from = "" }) => {
               </>
             ) : (
               <>
-                Or <Link to="/?register=1">Create a your own store now!</Link>
+                Or <Link to="/?register=1">Create Your Own Store NOW!</Link>
               </>
             )}
           </Form.Item>

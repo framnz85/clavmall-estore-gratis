@@ -38,7 +38,7 @@ const NoStore = () => {
                 type="primary"
                 icon={<PoweroffOutlined />}
                 size="large"
-                onClick={() => navigate("/" + estoreSet.slug)}
+                onClick={() => (window.location.href = "/" + estoreSet.slug)}
               >
                 Proceed to {estoreSet && estoreSet.name} NOW
               </Button>

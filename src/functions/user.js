@@ -51,6 +51,17 @@ export const changePassword = async (estoreid, values, authToken) =>
     }
   );
 
+export const forgotPassword = async (estoreid, values) =>
+  await axios.put(
+    process.env.REACT_APP_API + "/gratis/forgot-password",
+    values,
+    {
+      headers: {
+        estoreid,
+      },
+    }
+  );
+
 export const removeUser = async (estoreid, userid, authToken) =>
   await axios.delete(
     process.env.REACT_APP_API + "/gratis/user-delete/" + userid,

@@ -26,7 +26,7 @@ const UserOrder = () => {
     if (localStorage.getItem("orders")) {
       const localOrders = JSON.parse(localStorage.getItem("orders"));
       const myOrders = localOrders.filter(
-        (ord) => ord.orderedBy._id === user._id
+        (ord) => ord.orderedBy && ord.orderedBy._id === user._id
       );
       dispatch(addMyOrders(myOrders));
       execUserOrders();

@@ -167,7 +167,7 @@ const AdminSetting = () => {
               toast.warning("Make sure to click the Save Setting button");
             }}
             style={{ marginLeft: "10px" }}
-            disabled={values.status === "stop"}
+            disabled={values.status === "pending"}
           />
         </div>
       </div>

@@ -10,6 +10,9 @@ const Upgrades = () => {
 
   const user = useSelector((state) => state.user);
   const estoreSet = useSelector((state) => state.estoreSet);
+  const categories = useSelector((state) => state.categories);
+  const payments = useSelector((state) => state.payments);
+  const products = useSelector((state) => state.products);
 
   document.title = "Upgrades | " + estoreSet.name;
 
@@ -32,7 +35,7 @@ const Upgrades = () => {
           <hr />
 
           <div>
-            Once you have succeesfully created an account on this platform and
+            Once you have successfully created an account on this platform and
             have your store website up and running, you can add: <br />
             <br />
             <ul>
@@ -43,10 +46,14 @@ const Upgrades = () => {
             This is because we are only limited with the spaces given to us by
             our hosting provider. However, in order for us to cope up with the
             hosting expenses, you can help us promote this platform by inviting
-            other people to create their own store using this platform. <br />
+            other people to use it and have their own online store. Somehow if
+            they upgrade to our paid plans then we can sustain the hosting costs
+            and can increase our hosting space.
             <br />
-            Once they're successful in creating their own store, we will
-            increase your limits on this free account.
+            <br />
+            Moreover, once these people that you invited successfully created
+            their own store, we will increase your limits on your Gratis
+            Clavstore account.
             <br />
             <br />
             <ul>
@@ -54,8 +61,8 @@ const Upgrades = () => {
               <li>Additional 1 category per invites</li>
               <li>Additional 5 users per invites</li>
             </ul>
-            Copy any of the link below and give it to someone whom you think
-            needs this program.
+            <strong>Invitation Link.</strong> Copy any of the link below and
+            give it to someone whom you think needs this program.
             <br />
             <br />
             <Input.Group compact>
@@ -86,29 +93,42 @@ const Upgrades = () => {
               </Tooltip>
             </Input.Group>
             <br />
-            You may invite people who wanted to have a business but has no
-            capital to start. You can also give that link to those individual
-            who owns a physical store. This will turn their physical store into
-            online store because they will have a website.
+            <strong>Hint #1:</strong> You can give this link to those individual
+            who owns a physical store so they can turn it into an ecommerce
+            business for free. Look around you and you can see a lot of small
+            stores (ex. mini grocery or sari-sari stores). Give them your
+            Invitation Link so they can create an account fro free.
+            <br />
+            <br />
+            <strong>Hint #2:</strong> You may also invite people who wanted to
+            have a business but has no capital to start. They can start online
+            grocery business without any initial capital to start using this
+            platform.
+            <br />
+            <br />
+            Lastly, just set this into your mind that by giving your Invitaion
+            Link, you are not just increasing your limits but you are also
+            helping other people!!!
           </div>
           <br />
           <br />
 
-          {false && (
+          {categories.length && payments.length && products.length && (
             <>
               <h4>Paid Upgrades</h4>
               <hr />
               <div>
                 Now, if you want to get all the features of this platform
-                without limitations, you can upgrade to our Paid Platforms.
+                without limitations and without invitations, you can upgrade to
+                our Paid Platforms.
+                <br />
+                <br />
                 Upgrades are:
-                <br />
-                <br />
                 <ul>
                   <li>Unlimited products</li>
                   <li>Unlimited categories</li>
                   <li>Unlimited users</li>
-                  <li>Referral commissions</li>
+                  <li>Unlimited payment options</li>
                 </ul>
                 <a
                   href="https://program.clavstore.com/p/ogpa-program"

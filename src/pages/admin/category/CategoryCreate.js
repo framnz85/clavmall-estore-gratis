@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { ApartmentOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
 
 import AdminNav from "../../../components/navigation/AdminNav";
 import CategoryList from "../../../components/admin/CategoryList";
 import Alerts from "../../../components/common/Alerts";
+import Limits from "../../../components/common/Limits";
 
 import { getCategories, addCategory } from "../../../functions/category";
 import {
@@ -65,7 +65,6 @@ const CategoryCreate = () => {
           JSON.stringify([...categories, res.data])
         );
         form.setFieldsValue(initialValues);
-        setLoading(false);
         updateEstore(
           estoreSet._id,
           { categoryChange: parseInt(estoreSet.categoryChange) + 1 },
@@ -79,6 +78,7 @@ const CategoryCreate = () => {
           }
         });
       }
+      setLoading(false);
     });
   };
 
@@ -136,15 +136,7 @@ const CategoryCreate = () => {
 
           <CategoryList />
 
-          {categories.length > 0 && (
-            <div style={{ marginBottom: 50 }}>
-              You can only upload a maximum of {estoreSet.categoryLimit}{" "}
-              categories for this account,{" "}
-              <Link to={`/${estoreSet.slug}/admin/upgrade`}>
-                Increase Limit NOW
-              </Link>
-            </div>
-          )}
+          {categories.length > 0 && <Limits type="category" />}
         </div>
       </div>
     </div>

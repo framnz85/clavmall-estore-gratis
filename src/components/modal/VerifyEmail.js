@@ -103,13 +103,13 @@ const VerifyEmail = ({ isModalVisible, setIsModalVisible }) => {
           rules={[
             {
               required: true,
-              message: "Please input your Full Name!",
+              message: "Please input your Email Address!",
             },
           ]}
         >
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Full Name"
+            placeholder="Email Address"
             disabled={true}
           />
         </Form.Item>

@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import AdminNav from "../../../components/navigation/AdminNav";
 import PaymentList from "../../../components/admin/PaymentList";
 import Alerts from "../../../components/common/Alerts";
+import Limits from "../../../components/common/Limits";
 
 import { getPayments, addPayment } from "../../../functions/payment";
 import { storePayments, addStorePayment } from "../../../reducers/paymentSlice";
@@ -66,7 +67,6 @@ const PaymentCreate = () => {
           JSON.stringify([...payments, res.data])
         );
         form.setFieldsValue(initialValues);
-        setLoading(false);
         updateEstore(
           estoreSet._id,
           { paymentChange: parseInt(estoreSet.paymentChange) + 1 },
@@ -80,6 +80,7 @@ const PaymentCreate = () => {
           }
         });
       }
+      setLoading(false);
     });
   };
 
@@ -180,8 +181,8 @@ const PaymentCreate = () => {
           <hr />
 
           <PaymentList />
-          <br />
-          <br />
+
+          {payments.length > 0 && <Limits type="payment" />}
         </div>
       </div>
     </div>

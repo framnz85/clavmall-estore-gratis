@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import AdminNav from "../../../components/navigation/AdminNav";
 import UploadImage from "../../../components/common/UploadImage";
 import Alerts from "../../../components/common/Alerts";
+import Limits from "../../../components/common/Limits";
 
 import { getCategories } from "../../../functions/category";
 import { uploadFileImage, addProduct } from "../../../functions/product";
@@ -26,6 +27,7 @@ const CreateProduct = () => {
 
   const user = useSelector((state) => state.user);
   const categories = useSelector((state) => state.categories);
+  const products = useSelector((state) => state.products);
   const estoreSet = useSelector((state) => state.estoreSet);
 
   const [images, setImages] = useState([]);
@@ -233,6 +235,8 @@ const CreateProduct = () => {
               </Button>
             </Form.Item>
           </Form>
+
+          {products.length > 0 && <Limits type="product" />}
         </div>
       </div>
     </div>
