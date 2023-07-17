@@ -50,7 +50,18 @@ const OrderDetails = () => {
           {order.paymentOption && (
             <div className="alert alert-success">
               <h5>Here's the instructions on how to pay your order</h5>
-              <p>{order.paymentOption.accDetails}</p>
+              <p>
+                <strong>Bank:</strong> {order.paymentOption.bankName}
+              </p>
+              <p>
+                <strong>Account Name:</strong> {order.paymentOption.accName}
+              </p>
+              <p>
+                <strong>Account Number:</strong> {order.paymentOption.accNumber}
+              </p>
+              <p>
+                <strong>Other Details:</strong> {order.paymentOption.accDetails}
+              </p>
             </div>
           )}
         </div>

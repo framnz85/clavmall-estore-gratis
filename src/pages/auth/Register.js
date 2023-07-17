@@ -79,7 +79,7 @@ const Register = ({ from = "" }) => {
   };
 
   return (
-    <div className="not-found-container" style={{ marginTop: -80 }}>
+    <div className="not-found-container" style={{ marginTop: -30 }}>
       <div className="not-found-content">
         {estoreSet && estoreSet._id && from === "header" ? (
           <h3>Register</h3>
@@ -253,7 +253,12 @@ const Register = ({ from = "" }) => {
               </>
             ) : (
               <>
-                Or <Link to="/">Login now!</Link>
+                Or{" "}
+                <Link
+                  to={`/${refid && refid !== null ? "?refid=" + refid : ""}`}
+                >
+                  Login now!
+                </Link>
               </>
             )}
           </Form.Item>

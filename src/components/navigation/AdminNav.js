@@ -142,7 +142,7 @@ const AdminNav = () => {
       )}
 
       {isMobile && (
-        <div style={{ width: window.innerWidth - 39 }}>
+        <div style={{ width: window.innerWidth - 25 }}>
           <Select
             showSearch
             placeholder="Menu Select"

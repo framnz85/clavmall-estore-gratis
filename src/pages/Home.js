@@ -8,6 +8,7 @@ import { isMobile } from "react-device-detect";
 import LoadingCard from "../components/cards/LoadingCard";
 import ProductCard from "../components/cards/ProductCard";
 import Alerts from "../components/common/Alerts";
+import PreSteps from "../components/common/PreSteps";
 
 import { getRandomProducts } from "../functions/product";
 import { storeProducts } from "../reducers/productSlice";
@@ -58,6 +59,7 @@ const Home = () => {
 
       <div className="container">
         <Alerts />
+        <PreSteps />
         {loading ? (
           <div style={{ marginRight: 10 }}>
             <LoadingCard count={page * 30} />

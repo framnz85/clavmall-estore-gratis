@@ -39,8 +39,11 @@ const VerifyEmail = ({ isModalVisible, setIsModalVisible }) => {
       if (res.data.err) {
         toast.error(res.data.err);
       } else {
+        const names = user && user.name ? user.name.split(" ") : "";
         window.open(
-          `../../verify.html?email=${user.email}&cvc=${code.encrypt}`,
+          `../../verify.html?email=${user.email}&name=${
+            names[0] ? names[0] : ""
+          }&cvc=${code.encrypt}`,
           "_blank"
         );
       }

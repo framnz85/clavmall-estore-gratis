@@ -68,7 +68,7 @@ const Upgrades = () => {
             <Input.Group compact>
               <Input
                 style={{ width: "90%" }}
-                value={`${process.env.REACT_APP_LINK1}/?register=1&refid=${user._id}`}
+                value={`${process.env.REACT_APP_LINK1}/?refid=${user._id}`}
                 id="myInput1"
               />
               <Tooltip title={copied}>
@@ -82,7 +82,7 @@ const Upgrades = () => {
             <Input.Group compact>
               <Input
                 style={{ width: "90%" }}
-                value={`${process.env.REACT_APP_LINK2}/?register=1&refid=${user._id}`}
+                value={`${process.env.REACT_APP_LINK2}/?refid=${user._id}`}
                 id="myInput2"
               />
               <Tooltip title={copied}>
@@ -113,35 +113,37 @@ const Upgrades = () => {
           <br />
           <br />
 
-          {categories.length && payments.length && products.length && (
-            <>
-              <h4>Paid Upgrades</h4>
-              <hr />
-              <div>
-                Now, if you want to get all the features of this platform
-                without limitations and without invitations, you can upgrade to
-                our Paid Platforms.
-                <br />
-                <br />
-                Upgrades are:
-                <ul>
-                  <li>Unlimited products</li>
-                  <li>Unlimited categories</li>
-                  <li>Unlimited users</li>
-                  <li>Unlimited payment options</li>
-                </ul>
-                <a
-                  href="https://program.clavstore.com/p/ogpa-program"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Check the paid upgrades here
-                </a>
-                <br />
-                <br />
-              </div>
-            </>
-          )}
+          {categories.length > 0 &&
+            payments.length > 0 &&
+            products.length > 0 && (
+              <>
+                <h4>Paid Upgrades</h4>
+                <hr />
+                <div>
+                  Now, if you want to get all the features of this platform
+                  without limitations and without invitations, you can upgrade
+                  to our Paid Platforms.
+                  <br />
+                  <br />
+                  Upgrades are:
+                  <ul>
+                    <li>Unlimited products</li>
+                    <li>Unlimited categories</li>
+                    <li>Unlimited users</li>
+                    <li>Unlimited payment options</li>
+                  </ul>
+                  <a
+                    href="https://program.clavstore.com/p/ogpa-program"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Check the paid upgrades here
+                  </a>
+                  <br />
+                  <br />
+                </div>
+              </>
+            )}
         </div>
       </div>
     </div>

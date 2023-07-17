@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import NumberFormat from "react-number-format";
@@ -7,6 +7,13 @@ import ImageShow from "../../components/common/ImageShow";
 
 const DetailsTable = ({ order }) => {
   const estoreSet = useSelector((state) => state.estoreSet);
+
+  const [grandTotal, setGrandTotal] = useState(0);
+
+  useEffect(() => {
+    const total = parseFloat(order.cartTotal) + parseFloat(order.delfee);
+    setGrandTotal(total);
+  }, [order]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const statusColor = [
     { status: "Not Processed", color: "darkred" },
@@ -148,38 +155,13 @@ const DetailsTable = ({ order }) => {
           </tr>
           <tr>
             <td colSpan={4}></td>
-            <td>Service Fee</td>
-            <td>
-              <NumberFormat
-                value={order.servefee && order.servefee.toFixed(2)}
-                displayType={"text"}
-                thousandSeparator={true}
-                prefix={"₱"}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td colSpan={4}></td>
-            <td>Discount</td>
-            <td>
-              -{" "}
-              <NumberFormat
-                value={order.discount && order.discount.toFixed(2)}
-                displayType={"text"}
-                thousandSeparator={true}
-                prefix={"₱"}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td colSpan={4}></td>
             <td>
               <b>Grand Total</b>
             </td>
             <td>
               <b>
                 <NumberFormat
-                  value={order.grandTotal && order.grandTotal.toFixed(2)}
+                  value={grandTotal.toFixed(2)}
                   displayType={"text"}
                   thousandSeparator={true}
                   prefix={"₱"}
