@@ -10,12 +10,11 @@ const Guide = () => {
 
   document.title = "Guides | " + estoreSet.name;
 
-  const [videoId, setVideoId] = useState("841616427");
-  const [videoTitle, setVideoTitle] = useState(
-    "Step 1. Verifying your Email Address"
-  );
+  const [videoId, setVideoId] = useState("846473671");
+  const [videoTitle, setVideoTitle] = useState("Watch this Video First");
 
   const videos = [
+    { id: "846473671", title: "Watch this Video First" },
     { id: "841616427", title: "Step 1. Verifying your Email Address" },
     { id: "841616472", title: "Step 2. Add Categories" },
     { id: "841616531", title: "Step 3. Add Products" },
@@ -50,6 +49,9 @@ const Guide = () => {
           <hr />
           <Alerts />
 
+          <div onClick={() => showGuideVideo("846473671")} style={linkStyle}>
+            Watch this Video First
+          </div>
           <div onClick={() => showGuideVideo("841616427")} style={linkStyle}>
             Step 1. Verifying your Email Address
           </div>

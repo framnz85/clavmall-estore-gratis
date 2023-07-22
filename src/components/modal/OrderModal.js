@@ -26,6 +26,7 @@ const OrderModal = ({ order, setOrder, isModalVisible, setIsModalVisible }) => {
       {
         orderid: order._id,
         orderStatus: status,
+        orderedBy: order.orderedBy._id,
       },
       user.token
     ).then((res) => {

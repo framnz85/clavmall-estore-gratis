@@ -10,9 +10,6 @@ const Upgrades = () => {
 
   const user = useSelector((state) => state.user);
   const estoreSet = useSelector((state) => state.estoreSet);
-  const categories = useSelector((state) => state.categories);
-  const payments = useSelector((state) => state.payments);
-  const products = useSelector((state) => state.products);
 
   document.title = "Upgrades | " + estoreSet.name;
 
@@ -22,6 +19,22 @@ const Upgrades = () => {
     copyText.setSelectionRange(0, 99999); // For mobile devices
     navigator.clipboard.writeText(copyText.value);
     setCopied("Copied");
+  };
+
+  const styles = {
+    package1: {
+      display: "flex",
+      margin: "10px 0",
+      position: "relative",
+    },
+    package2: {
+      width: "100%",
+      border: "1px solid #aaaaaa",
+      marginRight: 5,
+    },
+    header: { padding: 5 },
+    body: { marginTop: 10, height: 280 },
+    footer: { padding: 10, position: "absolute", bottom: 0 },
   };
 
   return (
@@ -113,37 +126,118 @@ const Upgrades = () => {
           <br />
           <br />
 
-          {categories.length > 0 &&
-            payments.length > 0 &&
-            products.length > 0 && (
-              <>
-                <h4>Paid Upgrades</h4>
-                <hr />
-                <div>
-                  Now, if you want to get all the features of this platform
-                  without limitations and without invitations, you can upgrade
-                  to our Paid Platforms.
-                  <br />
-                  <br />
-                  Upgrades are:
-                  <ul>
-                    <li>Unlimited products</li>
-                    <li>Unlimited categories</li>
-                    <li>Unlimited users</li>
-                    <li>Unlimited payment options</li>
-                  </ul>
-                  <a
-                    href="https://program.clavstore.com/p/ogpa-program"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Check the paid upgrades here
-                  </a>
-                  <br />
-                  <br />
+          <h4>Paid Upgrades</h4>
+          <hr />
+          <div>
+            Now, if you want to get all the features of this platform with less
+            or no limitations and without invitations, you can upgrade to our
+            Paid Platforms.
+            <br />
+            <br />
+            <div style={styles.package1}>
+              <div style={styles.package2}>
+                <div
+                  align="center"
+                  style={{ ...styles.header, backgroundColor: "#FAD02C" }}
+                >
+                  Clavstore Subdomain Package
                 </div>
-              </>
-            )}
+                <div style={styles.body}>
+                  <ul>
+                    <li>Fully functional Grocery eCommerce</li>
+                    <li>Loaded with 1600+ Fast Moving Grocery Items</li>
+                    <li>Upload up to 2000 products</li>
+                    <li>Unlimited Customers, Categories, and Payments</li>
+                    <li>3 Months Free Hosting</li>
+                    <li>10-Days Training</li>
+                  </ul>
+                </div>
+                <div style={styles.footer}>
+                  One-Time: ₱2,990 <s>₱14,890</s> 80% Off
+                  <br />
+                  Hosting Fee: P540/mo (starts 3 months after)
+                </div>
+              </div>
+              <div style={styles.package2}>
+                <div
+                  align="center"
+                  style={{ ...styles.header, backgroundColor: "#F68181" }}
+                >
+                  Clavstore Domain Name Package
+                </div>
+                <div style={styles.body}>
+                  <ul>
+                    <li>Fully functional Grocery eCommerce</li>
+                    <li>Domain name of your choice</li>
+                    <li>Loaded with 4600+ Complete Grocery Items</li>
+                    <li>
+                      Unlimited Products, Customers, Categories, and Payments
+                    </li>
+                    <li>12 Months Free Hosting</li>
+                    <li>10-Days Training</li>
+                  </ul>
+                </div>
+                <div style={styles.footer}>
+                  One-Time: ₱4,990 <s>₱31,890</s> 85% Off
+                  <br />
+                  Hosting Fee: P4,320/yr (starts 1 year after)
+                </div>
+              </div>
+              <div style={styles.package2}>
+                <div
+                  align="center"
+                  style={{ ...styles.header, backgroundColor: "#7CF3A0" }}
+                >
+                  Clavstore Mobile App Package
+                </div>
+                <div style={styles.body}>
+                  <ul>
+                    <li>Fully functional Grocery eCommerce</li>
+                    <li>Domain name of your choice</li>
+                    <li>Mobile App (Android & iOS)</li>
+                    <li>Loaded with 4600+ Complete Grocery Items</li>
+                    <li>
+                      Unlimited Products, Customers, Categories, and Payments
+                    </li>
+                    <li>12 Months Free Hosting</li>
+                    <li>10-Days Training</li>
+                  </ul>
+                </div>
+                <div style={styles.footer}>
+                  One-Time: ₱8,990 <s>₱72,890</s> 88% Off
+                  <br />
+                  Hosting Fee: P4,320/yr (starts 1 year after)
+                </div>
+              </div>
+            </div>
+            <br />
+            <div align="center">
+              <Button
+                onClick={() =>
+                  window.open(
+                    "https://program.clavstore.com/program/ogpa-program?noRedirect=1"
+                  )
+                }
+                type="primary"
+                style={{ width: 350, fontSize: 18, height: 50 }}
+              >
+                Choose A Package
+              </Button>
+              <br />
+              <br />
+              <Button
+                onClick={() =>
+                  window.open("https://program.clavstore.com/p/ogpa-program")
+                }
+                type="default"
+                style={{ width: 350, fontSize: 18, height: 50 }}
+              >
+                See More Package Details
+              </Button>
+            </div>
+            <br />
+            <br />
+          </div>
         </div>
       </div>
     </div>

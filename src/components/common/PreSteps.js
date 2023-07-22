@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Button, Input, Tooltip } from "antd";
 import { CopyOutlined } from "@ant-design/icons";
+import { isMobile } from "react-device-detect";
+import ReactPlayer from "react-player/vimeo";
 
 const PreSteps = () => {
   const user = useSelector((state) => state.user);
@@ -30,8 +32,15 @@ const PreSteps = () => {
         >
           <div align="center">
             <h3 style={{ color: "#0047AB" }}>
-              Carefully Follow The Next Steps Below
+              Carefully Watch The Video Below For The Next Steps
             </h3>
+          </div>
+          <div align="center" style={{ marginBottom: 20 }}>
+            <ReactPlayer
+              url={`https://vimeo.com/846473671`}
+              width="100%"
+              controls={true}
+            />
           </div>
           Thank you for registering to Gratis Clavstore. I hope you will find
           this platform usefull for your business to succeed in the web space.
@@ -68,9 +77,10 @@ const PreSteps = () => {
               below.
               <br />
               <br />
+              Your Invitation Link:
               <Input.Group compact>
                 <Input
-                  style={{ width: "90%" }}
+                  style={{ width: isMobile ? "80%" : "93%" }}
                   value={`${process.env.REACT_APP_LINK1}/?refid=${user._id}`}
                   id="myInput1"
                 />
@@ -81,6 +91,16 @@ const PreSteps = () => {
                   />
                 </Tooltip>
               </Input.Group>
+              <br />
+            </li>
+            <li>
+              <strong>Receive The Free Training Everyday.</strong> Make sure to
+              open your email inbox everyday. Save the email
+              gratis@clavstore.com and mark it as important in your email
+              account so that the email message containing the link to the free
+              training will surely land on your email's inbox.
+              <br />
+              <br />
             </li>
           </ol>
         </div>

@@ -58,8 +58,8 @@ const Home = () => {
       </div>
 
       <div className="container">
-        <Alerts />
         <PreSteps />
+        <Alerts />
         {loading ? (
           <div style={{ marginRight: 10 }}>
             <LoadingCard count={page * 30} />
@@ -86,6 +86,8 @@ const Home = () => {
             {loading ? <LoadingOutlined /> : "Load More"}
           </Button>
         </div>
+        <br />
+        <br />
       </div>
     </div>
   );

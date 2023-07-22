@@ -15,6 +15,7 @@ import {
   ToolOutlined,
   LogoutOutlined,
   QuestionCircleOutlined,
+  SyncOutlined,
 } from "@ant-design/icons";
 import { isMobile } from "react-device-detect";
 
@@ -108,6 +109,12 @@ const AdminNav = () => {
       href: `/${estoreSet.slug}/admin/guide`,
       icon: <QuestionCircleOutlined />,
       label: "Guide",
+    },
+    {
+      key: "16",
+      href: `/${estoreSet.slug}/admin/training`,
+      icon: <SyncOutlined />,
+      label: "Training",
     },
   ];
 

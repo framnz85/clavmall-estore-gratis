@@ -54,6 +54,7 @@ const ManageUser = lazy(() => import("./pages/admin/ManageUser"));
 const AdminSetting = lazy(() => import("./pages/admin/AdminSetting"));
 const Upgrade = lazy(() => import("./pages/admin/Upgrades"));
 const Guide = lazy(() => import("./pages/admin/guide"));
+const Training = lazy(() => import("./pages/admin/guide/training"));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -372,6 +373,15 @@ const App = () => {
             element={
               <AdminRoute>
                 <Guide setSlug={setSlug} estore={estore} />
+              </AdminRoute>
+            }
+          />
+          <Route
+            exact
+            path="/:slug/admin/training"
+            element={
+              <AdminRoute>
+                <Training setSlug={setSlug} estore={estore} />
               </AdminRoute>
             }
           />

@@ -9,7 +9,7 @@ import { createEstore } from "../../functions/estore";
 import { getAllCountries } from "../../functions/auth";
 import { estoreDet } from "../../reducers/estoreSlice";
 import { loginUser } from "../../reducers/userSlice";
-import { createNewUser } from "../../functions/user";
+import { createNewUser, sendEmailuser } from "../../functions/user";
 
 const Register = ({ from = "" }) => {
   const dispatch = useDispatch();
@@ -73,6 +73,10 @@ const Register = ({ from = "" }) => {
             token: res.data.token,
           })
         );
+        sendEmailuser(estore, {
+          email: res.data.user.email,
+          name: res.data.user.name,
+        });
         navigate(`/${estore.slug}`);
       }
     });

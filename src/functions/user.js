@@ -23,6 +23,13 @@ export const createNewUser = async (estoreid, values) =>
     },
   });
 
+export const sendEmailuser = async (estoreid, values) =>
+  await axios.post(process.env.REACT_APP_API + "/gratis/user-email", values, {
+    headers: {
+      estoreid,
+    },
+  });
+
 export const updateUserDetails = async (estoreid, values, authToken) =>
   await axios.put(process.env.REACT_APP_API + "/gratis/user-update", values, {
     headers: {
