@@ -1,11 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Button } from "antd";
+import ReactPlayer from "react-player/vimeo";
 
 import AdminNav from "../../../components/navigation/AdminNav";
 import Alerts from "../../../components/common/Alerts";
 
 const Training = () => {
+  const user = useSelector((state) => state.user);
   const estoreSet = useSelector((state) => state.estoreSet);
 
   document.title = "Training | " + estoreSet.name;
@@ -25,6 +27,18 @@ const Training = () => {
           <br />
 
           <div align="center">
+            {user && user.role === "admin" && user.emailConfirm && (
+              <div align="center" style={{ marginBottom: 20 }}>
+                <label>
+                  <strong>Next Step:</strong> Watch First The Video Below!
+                </label>
+                <ReactPlayer
+                  url={`https://vimeo.com/847560020`}
+                  width="100%"
+                  controls={true}
+                />
+              </div>
+            )}
             <Button
               type="primary"
               size="large"

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { UserOutlined, BarcodeOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Modal } from "antd";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 import { updateUserDetails, verifyUserEmail } from "../../functions/user";
 import { loginUser } from "../../reducers/userSlice";
@@ -10,6 +11,7 @@ import { loginUser } from "../../reducers/userSlice";
 const VerifyEmail = ({ isModalVisible, setIsModalVisible }) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const user = useSelector((state) => state.user);
   const estoreSet = useSelector((state) => state.estoreSet);
@@ -24,6 +26,7 @@ const VerifyEmail = ({ isModalVisible, setIsModalVisible }) => {
         toast.success("You have successfully verified your account");
         dispatch(loginUser(res.data));
         setIsModalVisible(false);
+        navigate(`/${estoreSet.slug}/admin/training`);
       }
     });
   };

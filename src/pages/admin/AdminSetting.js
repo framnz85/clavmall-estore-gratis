@@ -52,24 +52,31 @@ const AdminSetting = () => {
   };
 
   const handleSubmit = () => {
-    const echange = estoreSet.estoreChange > 0 ? estoreSet.estoreChange + 1 : 1;
+    if (user && user.role === "admin" && user.emailConfirm) {
+      const echange =
+        estoreSet.estoreChange > 0 ? estoreSet.estoreChange + 1 : 1;
 
-    setLoading(true);
-    updateEstore(
-      estoreSet._id,
-      { ...estoreSet, ...values, estoreChange: echange },
-      user.token
-    ).then((res) => {
-      if (res.data.err) {
-        toast.error(res.data.err);
-        setLoading(false);
-      } else {
-        dispatch(estoreDet(res.data));
-        localStorage.setItem("estore", JSON.stringify(res.data));
-        toast.success(`Home setting successfully updated`);
-        setLoading(false);
-      }
-    });
+      setLoading(true);
+      updateEstore(
+        estoreSet._id,
+        { ...estoreSet, ...values, estoreChange: echange },
+        user.token
+      ).then((res) => {
+        if (res.data.err) {
+          toast.error(res.data.err);
+          setLoading(false);
+        } else {
+          dispatch(estoreDet(res.data));
+          localStorage.setItem("estore", JSON.stringify(res.data));
+          toast.success(`Home setting successfully updated`);
+          setLoading(false);
+        }
+      });
+    } else {
+      toast.error(
+        "Sorry, you could not modify your setting if your email address is not yet verified."
+      );
+    }
   };
   return (
     <div className="container">
@@ -167,7 +174,7 @@ const AdminSetting = () => {
               toast.warning("Make sure to click the Save Setting button");
             }}
             style={{ marginLeft: "10px" }}
-            disabled={values.status === "pending"}
+            disabled={values.status === "pending" && (user && user.role === "admin" && !user.emailConfirm)}
           />
         </div>
       </div>

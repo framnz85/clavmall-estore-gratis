@@ -56,41 +56,47 @@ const CreateProduct = () => {
   };
 
   const onFinish = async (values) => {
-    let result;
-    let allUploadedFiles = [];
+    if (user && user.role === "admin" && user.emailConfirm) {
+      let result;
+      let allUploadedFiles = [];
 
-    setLoading(true);
+      setLoading(true);
 
-    for (let i = 0; i < images.length; i++) {
-      result = await uploadFileImage(images[i].url, estoreSet, user.token);
-      allUploadedFiles.push(result.data);
-    }
-
-    addProduct(
-      estoreSet._id,
-      { ...values, images: allUploadedFiles },
-      user.token
-    ).then((res) => {
-      if (res.data.err) {
-        toast.error(res.data.err);
-      } else {
-        toast.success("Product successfully created");
-        navigate(`/${estoreSet.slug}/admin/products`);
-        updateEstore(
-          estoreSet._id,
-          { productChange: parseInt(estoreSet.productChange) + 1 },
-          user.token
-        ).then((res) => {
-          if (res.data.err) {
-            toast.error(res.data.err);
-          } else {
-            dispatch(estoreDet(res.data));
-            localStorage.setItem("estore", JSON.stringify(res.data));
-          }
-        });
+      for (let i = 0; i < images.length; i++) {
+        result = await uploadFileImage(images[i].url, estoreSet, user.token);
+        allUploadedFiles.push(result.data);
       }
-      setLoading(false);
-    });
+
+      addProduct(
+        estoreSet._id,
+        { ...values, images: allUploadedFiles },
+        user.token
+      ).then((res) => {
+        if (res.data.err) {
+          toast.error(res.data.err);
+        } else {
+          toast.success("Product successfully created");
+          navigate(`/${estoreSet.slug}/admin/products`);
+          updateEstore(
+            estoreSet._id,
+            { productChange: parseInt(estoreSet.productChange) + 1 },
+            user.token
+          ).then((res) => {
+            if (res.data.err) {
+              toast.error(res.data.err);
+            } else {
+              dispatch(estoreDet(res.data));
+              localStorage.setItem("estore", JSON.stringify(res.data));
+            }
+          });
+        }
+        setLoading(false);
+      });
+    } else {
+      toast.error(
+        "Sorry, you can only add products once you verified your email address"
+      );
+    }
   };
 
   const computeFinalPrice = () => {

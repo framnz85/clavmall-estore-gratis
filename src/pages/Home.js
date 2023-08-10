@@ -58,6 +58,7 @@ const Home = () => {
       </div>
 
       <div className="container">
+        <Alerts />
         <PreSteps />
         <Alerts />
         {loading ? (

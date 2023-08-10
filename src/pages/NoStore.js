@@ -33,7 +33,7 @@ const NoStore = () => {
             {estoreSet && estoreSet.slug ? "Welcome!" : "Oops!"}
           </h1>
           <p style={{ fontSize: "1.5rem", color: "#777" }}>
-            {estoreSet && estoreSet.slug ? (
+            {estoreSet && estoreSet._id ? (
               <Button
                 type="primary"
                 icon={<PoweroffOutlined />}

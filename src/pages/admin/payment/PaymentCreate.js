@@ -56,32 +56,38 @@ const PaymentCreate = () => {
   };
 
   const onFinish = async (values) => {
-    setLoading(true);
-    addPayment(estoreSet._id, values, user.token).then((res) => {
-      if (res.data.err) {
-        toast.error(res.data.err);
-      } else {
-        dispatch(addStorePayment(res.data));
-        localStorage.setItem(
-          "payments",
-          JSON.stringify([...payments, res.data])
-        );
-        form.setFieldsValue(initialValues);
-        updateEstore(
-          estoreSet._id,
-          { paymentChange: parseInt(estoreSet.paymentChange) + 1 },
-          user.token
-        ).then((res) => {
-          if (res.data.err) {
-            toast.error(res.data.err);
-          } else {
-            dispatch(estoreDet(res.data));
-            localStorage.setItem("estore", JSON.stringify(res.data));
-          }
-        });
-      }
-      setLoading(false);
-    });
+    if (user && user.role === "admin" && user.emailConfirm) {
+      setLoading(true);
+      addPayment(estoreSet._id, values, user.token).then((res) => {
+        if (res.data.err) {
+          toast.error(res.data.err);
+        } else {
+          dispatch(addStorePayment(res.data));
+          localStorage.setItem(
+            "payments",
+            JSON.stringify([...payments, res.data])
+          );
+          form.setFieldsValue(initialValues);
+          updateEstore(
+            estoreSet._id,
+            { paymentChange: parseInt(estoreSet.paymentChange) + 1 },
+            user.token
+          ).then((res) => {
+            if (res.data.err) {
+              toast.error(res.data.err);
+            } else {
+              dispatch(estoreDet(res.data));
+              localStorage.setItem("estore", JSON.stringify(res.data));
+            }
+          });
+        }
+        setLoading(false);
+      });
+    } else {
+      toast.error(
+        "Sorry, you can only add payment options once you verified your email address"
+      );
+    }
   };
 
   return (

@@ -4,6 +4,7 @@ import { CopyOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 
 import AdminNav from "../../components/navigation/AdminNav";
+// import { isMobile } from "react-device-detect";
 
 const Upgrades = () => {
   const [copied, setCopied] = useState("Copy to Clipboard");
@@ -21,21 +22,27 @@ const Upgrades = () => {
     setCopied("Copied");
   };
 
-  const styles = {
-    package1: {
-      display: "flex",
-      margin: "10px 0",
-      position: "relative",
-    },
-    package2: {
-      width: "100%",
-      border: "1px solid #aaaaaa",
-      marginRight: 5,
-    },
-    header: { padding: 5 },
-    body: { marginTop: 10, height: 280 },
-    footer: { padding: 10, position: "absolute", bottom: 0 },
-  };
+  // const styles = {
+  //   package1: {
+  //     display: "flex",
+  //     flexDirection: isMobile ? "column" : "row",
+  //     margin: "10px 0",
+  //     position: "relative",
+  //   },
+  //   package2: {
+  //     width: "100%",
+  //     border: "1px solid #aaaaaa",
+  //     marginRight: 5,
+  //   },
+  //   header: { padding: 5 },
+  //   body: { marginTop: 10, height: isMobile ? 320 : 400 },
+  //   footer: {
+  //     padding: 10,
+  //     position: isMobile ? "none" : "absolute",
+  //     bottom: 0,
+  //     width: 300,
+  //   },
+  // };
 
   return (
     <div className="container">
@@ -126,15 +133,15 @@ const Upgrades = () => {
           <br />
           <br />
 
-          <h4>Paid Upgrades</h4>
+          <h4>Fully Upgrades</h4>
           <hr />
           <div>
             Now, if you want to get all the features of this platform with less
-            or no limitations and without invitations, you can upgrade to our
-            Paid Platforms.
+            or no limitations and without invitations, click the button below to
+            know how.
             <br />
             <br />
-            <div style={styles.package1}>
+            {/* <div style={styles.package1}>
               <div style={styles.package2}>
                 <div
                   align="center"
@@ -209,10 +216,109 @@ const Upgrades = () => {
                   Hosting Fee: P4,320/yr (starts 1 year after)
                 </div>
               </div>
+            </div> */}
+            {/* <div style={styles.package1}>
+              <div style={styles.package2}>
+                <div
+                  align="center"
+                  style={{ ...styles.header, backgroundColor: "#FAD02C" }}
+                >
+                  Subdomain Package
+                </div>
+                <div style={styles.body}>
+                  <ul>
+                    <li>We will upload 1600+ Fast Moving Grocery Items</li>
+                    <li>You can upload up to 2000 products</li>
+                    <li>Unlimited Customers, Categories, and Payments</li>
+                    <li>3 Months Free Hosting</li>
+                    <li>10-Days Training</li>
+                  </ul>
+                </div>
+                <div align="center" style={styles.footer}>
+                  <h5>One-Time Fee: ₱2,990 </h5>
+                  <h5>
+                    Hosting Fee: ₱540/month
+                    <br />
+                    <span style={{ fontSize: 12 }}>
+                      (starts 3 months after)
+                    </span>
+                  </h5>
+                  <br />
+                  Regular One-Time Fee: <s>₱14,890</s> 80% Off
+                  <br />
+                  Regular Hosting Fee: <s>₱2,700/month</s> 80% Off
+                </div>
+              </div>
+              <div style={styles.package2}>
+                <div
+                  align="center"
+                  style={{ ...styles.header, backgroundColor: "#F68181" }}
+                >
+                  Domain Name Package
+                </div>
+                <div style={styles.body}>
+                  <ul>
+                    <li>Includes a Domain Name</li>
+                    <li>We will upload 4600+ Grocery Items</li>
+                    <li>
+                      You can add Unlimited Products, Customers, Categories, and
+                      Payments
+                    </li>
+                    <li>12 Months Free Hosting</li>
+                    <li>10-Days Training</li>
+                  </ul>
+                </div>
+                <div align="center" style={styles.footer}>
+                  <h5>One-Time Fee: ₱4,990 </h5>
+                  <h5>
+                    Hosting Fee: ₱4,320/year
+                    <br />
+                    <span style={{ fontSize: 12 }}>(starts 1 year after)</span>
+                  </h5>
+                  <br />
+                  Regular One-Time Fee: <s>₱31,890</s> 85% Off
+                  <br />
+                  Regular Hosting Fee: <s>28,800/year</s> 85% Off
+                </div>
+              </div>
+              <div style={styles.package2}>
+                <div
+                  align="center"
+                  style={{ ...styles.header, backgroundColor: "#7CF3A0" }}
+                >
+                  Mobile App Package
+                </div>
+                <div style={styles.body}>
+                  <ul>
+                    <li>
+                      Includes a Domain Name and Mobile App (Android & iOS)
+                    </li>
+                    <li>We will upload 4600+ Complete Grocery Items</li>
+                    <li>
+                      You can add Unlimited Products, Customers, Categories, and
+                      Payments
+                    </li>
+                    <li>12 Months Free Hosting</li>
+                    <li>10-Days Training</li>
+                  </ul>
+                </div>
+                <div align="center" style={styles.footer}>
+                  <h5>One-Time Fee: ₱8,990 </h5>
+                  <h5>
+                    Hosting Fee: ₱4,320/year
+                    <br />
+                    <span style={{ fontSize: 12 }}>(starts 1 year after)</span>
+                  </h5>
+                  <br />
+                  Regular One-Time Fee: <s>₱72,890</s> 88% Off
+                  <br />
+                  Regular Hosting Fee: <s>28,800/year</s> 88% Off
+                </div>
+              </div>
             </div>
-            <br />
+            <br /> */}
             <div align="center">
-              <Button
+              {/* <Button
                 onClick={() =>
                   window.open(
                     "https://program.clavstore.com/program/ogpa-program?noRedirect=1"
@@ -224,17 +330,23 @@ const Upgrades = () => {
                 Choose A Package
               </Button>
               <br />
-              <br />
+              <br /> */}
               <Button
                 onClick={() =>
-                  window.open("https://program.clavstore.com/p/ogpa-program")
+                  window.open(
+                    "https://program.clavstore.com/p/ogpa-program/?saleid=64cdbed56d639b6594048c2c&refid=64aeb70a153aa05ba6a1f390"
+                  )
                 }
-                type="default"
-                style={{ width: 350, fontSize: 18, height: 50 }}
+                type="danger"
+                style={{ width: 350, fontSize: 16, height: 85 }}
               >
-                See More Package Details
+                Let Me Also Show You How To
+                <br /> Earn 1.17 Million Pesos A Month
+                <br /> With This Business
               </Button>
             </div>
+            <br />
+            <br />
             <br />
             <br />
           </div>

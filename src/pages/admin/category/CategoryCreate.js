@@ -54,32 +54,38 @@ const CategoryCreate = () => {
   };
 
   const onFinish = async (values) => {
-    setLoading(true);
-    addCategory(estoreSet._id, values, user.token).then((res) => {
-      if (res.data.err) {
-        toast.error(res.data.err);
-      } else {
-        dispatch(addStoreCategory(res.data));
-        localStorage.setItem(
-          "categories",
-          JSON.stringify([...categories, res.data])
-        );
-        form.setFieldsValue(initialValues);
-        updateEstore(
-          estoreSet._id,
-          { categoryChange: parseInt(estoreSet.categoryChange) + 1 },
-          user.token
-        ).then((res) => {
-          if (res.data.err) {
-            toast.error(res.data.err);
-          } else {
-            dispatch(estoreDet(res.data));
-            localStorage.setItem("estore", JSON.stringify(res.data));
-          }
-        });
-      }
-      setLoading(false);
-    });
+    if (user && user.role === "admin" && user.emailConfirm) {
+      setLoading(true);
+      addCategory(estoreSet._id, values, user.token).then((res) => {
+        if (res.data.err) {
+          toast.error(res.data.err);
+        } else {
+          dispatch(addStoreCategory(res.data));
+          localStorage.setItem(
+            "categories",
+            JSON.stringify([...categories, res.data])
+          );
+          form.setFieldsValue(initialValues);
+          updateEstore(
+            estoreSet._id,
+            { categoryChange: parseInt(estoreSet.categoryChange) + 1 },
+            user.token
+          ).then((res) => {
+            if (res.data.err) {
+              toast.error(res.data.err);
+            } else {
+              dispatch(estoreDet(res.data));
+              localStorage.setItem("estore", JSON.stringify(res.data));
+            }
+          });
+        }
+        setLoading(false);
+      });
+    } else {
+      toast.error(
+        "Sorry, you can only add categories once you verified your email address"
+      );
+    }
   };
 
   return (
