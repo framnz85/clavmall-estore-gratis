@@ -79,3 +79,11 @@ export const removeUser = async (estoreid, userid, authToken) =>
       },
     }
   );
+
+export const userEndPoint = async (estoreid, values, authToken) =>
+  await axios.put(process.env.REACT_APP_API + "/gratis/user-endpoint", values, {
+    headers: {
+      authToken,
+      estoreid,
+    },
+  });

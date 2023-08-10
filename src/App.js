@@ -12,7 +12,7 @@ import TabBottom from "./components/navigation/TabBottom";
 import ChatComponent from "./chat/ChatComponent";
 
 import { getEstore, getEstoreCounters } from "./functions/estore";
-import { getUserDetails } from "./functions/user";
+import { getUserDetails, userEndPoint } from "./functions/user";
 import { loginUser, logoutUser } from "./reducers/userSlice";
 import { estoreDet } from "./reducers/estoreSlice";
 import { emptyCart } from "./reducers/cartSlice";
@@ -129,7 +129,10 @@ const App = () => {
     if (userToken) {
       handleUserDetails(userToken);
     }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    if (user && user.role === "admin") {
+      getServiceWorker();
+    }
+  }, [user.role]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleUserDetails = (token) => {
     getUserDetails(estoreLocal._id, token).then((res) => {
@@ -155,6 +158,64 @@ const App = () => {
         }
       }
     });
+  };
+
+  const getServiceWorker = async () => {
+    if ("serviceWorker" in navigator) {
+      await navigator.serviceWorker.register("./serviceWorker.js");
+    }
+  };
+
+  const subscribe = async () => {
+    if ("serviceWorker" in navigator) {
+      let sw = await navigator.serviceWorker.ready;
+      try {
+        let push = await sw.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: process.env.REACT_APP_SERVICE_WORKER_KEY,
+        });
+        updateUserEndPoint(JSON.stringify(push));
+      } catch (e) {
+        toast.error(
+          "Sorry I can't mentor you this way. Please make sure you enabled Notification for this site. Go to your browser Setting, locate the Notification setting and then choose Allow."
+        );
+      }
+    }
+  };
+
+  const updateUserEndPoint = async (pushData) => {
+    const endPoint =
+      user.endPoint.length > 0 ? user.endPoint.map((point) => point) : [];
+    endPoint.push(pushData);
+    const values = { ...user, endPoint };
+
+    userEndPoint(estore._id, values, user.token).then((res) => {
+      if (res.data.err) {
+        toast.error(res.data.err);
+      } else {
+        dispatch(loginUser(res.data));
+        toast.success(
+          "Mentorship sealed. Thank you! I will let you know once I have a scheduled Live Mentorship Event"
+        );
+      }
+    });
+  };
+
+  const notifyUser = () => {
+    if (!("Notification" in window) || !("serviceWorker" in navigator)) {
+      toast.error("Browser does not support notifications");
+    } else if (Notification.permission !== "granted") {
+      toast.success(
+        'Please find the "Allow" notification button somewhere in your web browser\'s address bar and click it.'
+      );
+      subscribe();
+    }
+  };
+
+  const checkNotification = () => {
+    if ("Notification" in window && "serviceWorker" in navigator) {
+      return Notification.permission;
+    }
   };
 
   return (
@@ -387,7 +448,10 @@ const App = () => {
           />
         </Routes>
       </Suspense>
-      <TabBottom />
+      <TabBottom
+        notifyUser={notifyUser}
+        checkNotification={checkNotification}
+      />
       <ToastContainer />
       <ChatComponent />
     </>
