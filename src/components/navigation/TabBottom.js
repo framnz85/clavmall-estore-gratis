@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { Badge, Modal } from "antd";
+import { toast } from "react-toastify";
 
 import {
   RiHomeSmile2Line,
@@ -17,7 +18,7 @@ import {
 import { RiUser5Line } from "react-icons/ri";
 import { FaShoppingCart } from "react-icons/fa";
 
-const TabBottom = ({ notifyUser, checkNotification }) => {
+const TabBottom = ({ notifyUser, checkNotification, notifyChange }) => {
   const navigate = useNavigate();
 
   const [activeTabs, setActiveTabs] = useState("Francis");
@@ -50,15 +51,18 @@ const TabBottom = ({ notifyUser, checkNotification }) => {
   }, [activeTabs]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (user && user.role === "admin") {
-      setTimeout(() => {
-        const permission = checkNotification();
-        if (user.token && permission && permission !== "granted") {
-          showNotitfyRequest(true);
-        }
-      }, 5000);
+    if (user && user.role === "admin" && estoreSet.notify) {
+      setTimeout(
+        () => {
+          const permission = checkNotification();
+          if (user.token && permission && permission !== "granted") {
+            showNotitfyRequest(true);
+          }
+        },
+        notifyChange > 0 ? notifyChange : 5000
+      );
     }
-  }, [user.role]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [user.role, estoreSet.notify, notifyChange]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleOk = () => {
     notifyUser();
@@ -71,6 +75,10 @@ const TabBottom = ({ notifyUser, checkNotification }) => {
     if (user.token && permission && permission !== "granted") {
       setTimeout(() => showNotitfyRequest(true), 30000);
     }
+    toast.error(
+      "Sorry I can't mentor you this way. You can stop Free Mentorship Request from prompting by disabling the Notification switch on your Admin Setting below."
+    );
+    navigate(`/${estoreSet.slug}/admin/setting`);
   };
 
   const tabStyle = {
@@ -210,7 +218,7 @@ const TabBottom = ({ notifyUser, checkNotification }) => {
         <p>
           If you want me to personally teach you how to use this platform so
           you'll be sure of your success, allow me to send you notification so I
-          can send you details whenever I have am vacant.
+          can send you details whenever I am vacant.
         </p>
       </Modal>
     </div>

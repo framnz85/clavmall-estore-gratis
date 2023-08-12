@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import ReactPlayer from "react-player/vimeo";
+import { useSearchParams } from "react-router-dom";
 
 import AdminNav from "../../../components/navigation/AdminNav";
 import Alerts from "../../../components/common/Alerts";
 
 const Guide = () => {
   const estoreSet = useSelector((state) => state.estoreSet);
+  const [searchParams] = useSearchParams();
+  const videoid = searchParams.get("videoid");
 
   document.title = "Guides | " + estoreSet.name;
 
@@ -23,7 +26,16 @@ const Guide = () => {
       title: "Step 4. Sample Order, Delivery Fees, and Payments",
     },
     { id: "845687441", title: "Step 5. Manage Home and Users" },
+    { id: "853894520", title: "Step 6. How to Enable or Disable Notification" },
   ];
+
+  useEffect(() => {
+    if (videoid) {
+      setTimeout(() => {
+        showGuideVideo(videoid);
+      }, 1000);
+    }
+  }, [videoid]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const showGuideVideo = (vidId) => {
     const video = videos.find((vid) => vid.id === vidId);
@@ -43,9 +55,7 @@ const Guide = () => {
           <AdminNav />
         </div>
         <div className="col-md-10 bg-white mt-3 mb-5">
-          <h4 style={{ margin: "20px 0" }}>
-            Guidance On How To Use Your Store
-          </h4>
+          <h4 style={{ margin: "20px 0" }}>{videoTitle}</h4>
           <hr />
           <Alerts />
 
@@ -67,9 +77,12 @@ const Guide = () => {
           <div onClick={() => showGuideVideo("845687441")} style={linkStyle}>
             Step 5. Manage Home and Users
           </div>
-          <div>Step 6. Setup Grocey, the AI Assistant</div>
-          <div>Step 7. Admin vs Personal Account</div>
-          <div>Step 8. Free and Paid Upgrades</div>
+          <div onClick={() => showGuideVideo("853894520")} style={linkStyle}>
+            Step 6. How to Enable or Disable Notification
+          </div>
+          <div>Step 7. Setup Grocey, the AI Assistant</div>
+          <div>Step 8. Admin vs Personal Account</div>
+          <div>Step 9. Free and Paid Upgrades</div>
           <br />
           <br />
 

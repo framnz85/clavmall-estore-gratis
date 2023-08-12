@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -58,6 +58,7 @@ const Training = lazy(() => import("./pages/admin/guide/training"));
 
 const App = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const userToken = localStorage.getItem("userToken");
   const estoreLocal = localStorage.getItem("estore")
     ? JSON.parse(localStorage.getItem("estore"))
@@ -68,6 +69,7 @@ const App = () => {
 
   const [slug, setSlug] = useState("");
   const [estore, setEstore] = useState({});
+  const [notifyChange, setNotifyChange] = useState(0);
 
   useEffect(() => {
     if (slug) {
@@ -176,9 +178,11 @@ const App = () => {
         });
         updateUserEndPoint(JSON.stringify(push));
       } catch (e) {
+        setNotifyChange(30000);
         toast.error(
-          "Sorry I can't mentor you this way. Please make sure you enabled Notification for this site. Go to your browser Setting, locate the Notification setting and then choose Allow."
+          "Sorry I can't mentor you this way. Please make sure you enabled Notification for this site. Go to your Web Browser Setting and Operating System setting and enable the Notification."
         );
+        navigate(`/${estore.slug}/admin/guide?videoid=853894520`);
       }
     }
   };
@@ -195,7 +199,7 @@ const App = () => {
       } else {
         dispatch(loginUser(res.data));
         toast.success(
-          "Mentorship sealed. Thank you! I will let you know once I have a scheduled Live Mentorship Event"
+          "Mentorship sealed. Thank you! I will let you know once I have a scheduled Live Mentorship Event. You should receive a notification from your device."
         );
       }
     });
@@ -208,6 +212,7 @@ const App = () => {
       toast.success(
         'Please find the "Allow" notification button somewhere in your web browser\'s address bar and click it.'
       );
+      navigate(`/${estore.slug}/admin/guide?videoid=853894520`);
       subscribe();
     }
   };
@@ -451,6 +456,7 @@ const App = () => {
       <TabBottom
         notifyUser={notifyUser}
         checkNotification={checkNotification}
+        notifyChange={notifyChange}
       />
       <ToastContainer />
       <ChatComponent />

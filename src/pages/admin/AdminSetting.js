@@ -152,6 +152,26 @@ const AdminSetting = () => {
                 edit: false,
               }}
             />
+            <label>
+              <b>Notification</b>
+            </label>
+            <Switch
+              checked={values.notify}
+              onChange={(checked) => {
+                setValues({ ...values, notify: checked ? true : false });
+                if (checked) {
+                  toast.success(
+                    "Make sure also that you enabled Notification both on your Web Browser setting and Operating System setting."
+                  );
+                } else {
+                  toast.error(
+                    "I feel bad to know you disable the notification. I cannot guide you this way. Anyway, you can turn this on anytime. Thanks!"
+                  );
+                }
+                toast.warning("Make sure to click the Save Setting button");
+              }}
+              style={{ margin: 10 }}
+            />
           </div>
 
           <Button
@@ -174,7 +194,12 @@ const AdminSetting = () => {
               toast.warning("Make sure to click the Save Setting button");
             }}
             style={{ marginLeft: "10px" }}
-            disabled={values.status === "pending" && (user && user.role === "admin" && !user.emailConfirm)}
+            disabled={
+              values.status === "pending" &&
+              user &&
+              user.role === "admin" &&
+              !user.emailConfirm
+            }
           />
         </div>
       </div>

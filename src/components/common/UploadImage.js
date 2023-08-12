@@ -95,6 +95,7 @@ const UploadImage = ({ images, setImages, edit = false, prodid = "" }) => {
   };
 
   const handleRemove = (value) => {
+    console.log(value);
     if (edit && !value.originFileObj) {
       const uploadedImages = images.filter(
         (img) => img.public_id !== value.uid
@@ -105,7 +106,6 @@ const UploadImage = ({ images, setImages, edit = false, prodid = "" }) => {
         process.env.REACT_APP_ESTORE_DEFAULT_ID,
         user.token
       ).then(async (res) => {
-        console.log(res.data.delete);
         if (res.data.delete) {
           removeFileImage(value.uid, estoreSet, user.token).then((res) => {
             if (res.data.err) {
