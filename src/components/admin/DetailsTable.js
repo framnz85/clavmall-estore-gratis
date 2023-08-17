@@ -73,60 +73,64 @@ const DetailsTable = ({ order }) => {
           {order.products &&
             order.products.map((p, i) => {
               return (
-                <tr key={i}>
-                  <td>{i + 1}</td>
-                  <td>
-                    <Link
-                      to={`/${estoreSet.slug}/product/${p.product.slug}`}
-                      style={{ color: "#000" }}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <ImageShow
-                        alt={p.product.title}
-                        imgid={
-                          p.product.images && p.product.images.length > 0
-                            ? p.product.images[0].url
-                            : ""
-                        }
-                        style={{
-                          width: "50px",
-                          height: "50px",
-                        }}
-                        type="/thumb"
-                      />
-                    </Link>
-                  </td>
-                  <td>
-                    <Link
-                      to={`/${estoreSet.slug}/product/${p.product.slug}`}
-                      style={{ color: "#000" }}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {p.product && p.product.title ? p.product.title : ""}
-                    </Link>
-                  </td>
-                  <td>
-                    <NumberFormat
-                      value={p.price.toFixed(2)}
-                      displayType={"text"}
-                      thousandSeparator={true}
-                      prefix={"₱"}
-                    />
-                  </td>
-                  <td style={{ textAlign: "center" }}>
-                    {p.count ? p.count : ""}
-                  </td>
-                  <td>
-                    <NumberFormat
-                      value={(p.price * p.count).toFixed(2)}
-                      displayType={"text"}
-                      thousandSeparator={true}
-                      prefix={"₱"}
-                    />
-                  </td>
-                </tr>
+                <>
+                  {p.product && (
+                    <tr key={i}>
+                      <td>{i + 1}</td>
+                      <td>
+                        <Link
+                          to={`/${estoreSet.slug}/product/${p.product.slug}`}
+                          style={{ color: "#000" }}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <ImageShow
+                            alt={p.product.title}
+                            imgid={
+                              p.product.images && p.product.images.length > 0
+                                ? p.product.images[0].url
+                                : ""
+                            }
+                            style={{
+                              width: "50px",
+                              height: "50px",
+                            }}
+                            type="/thumb"
+                          />
+                        </Link>
+                      </td>
+                      <td>
+                        <Link
+                          to={`/${estoreSet.slug}/product/${p.product.slug}`}
+                          style={{ color: "#000" }}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {p.product && p.product.title ? p.product.title : ""}
+                        </Link>
+                      </td>
+                      <td>
+                        <NumberFormat
+                          value={p.price.toFixed(2)}
+                          displayType={"text"}
+                          thousandSeparator={true}
+                          prefix={"₱"}
+                        />
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        {p.count ? p.count : ""}
+                      </td>
+                      <td>
+                        <NumberFormat
+                          value={(p.price * p.count).toFixed(2)}
+                          displayType={"text"}
+                          thousandSeparator={true}
+                          prefix={"₱"}
+                        />
+                      </td>
+                    </tr>
+                  )}
+                </>
               );
             })}
           <tr>

@@ -189,6 +189,196 @@ const PreSteps = () => {
                     cancelText="No"
                   >
                     <Button type="default">Next Step &gt;&gt;</Button>
+                    <div style={{ float: "right" }}>Step 1 of 4</div>
+                  </Popconfirm>
+                </div>
+              </>
+            )}
+          </div>
+        )}
+
+      {user &&
+        user.role === "admin" &&
+        user.emailConfirm &&
+        user.nextSteps === 1 && (
+          <div
+            align="center"
+            style={{
+              border: "1px solid #0047AB",
+              padding: "20px 20px 10px 20px",
+              color: "#0047AB",
+              marginTop: 15,
+            }}
+          >
+            <Button
+              type="default"
+              className="btn btn-sm float-right"
+              onClick={() => setShowBody(!showBody)}
+            >
+              {showBody ? <>✖</> : <>Open</>}
+            </Button>
+            <h4 style={{ color: "red" }}>
+              NEXT STEP: Watch The Video Below To Know How To Start Instantly!
+            </h4>
+            {showBody && (
+              <>
+                <br />
+                <div align="center" style={{ marginBottom: 20 }}>
+                  <ReactPlayer
+                    url={`https://vimeo.com/853968297`}
+                    width="100%"
+                    height={isMobile ? 178 : 320}
+                    controls={true}
+                  />
+                  <br />
+                </div>
+                <div align="left" style={{ marginBottom: 20 }}>
+                  <Button
+                    type="default"
+                    onClick={() =>
+                      handleUpdateUser({ nextSteps: 0, email: user.email })
+                    }
+                  >
+                    &lt;&lt; Prev Step
+                  </Button>
+                  <Popconfirm
+                    value={user}
+                    title="Are you sure you have carefully watch the video above?"
+                    onConfirm={() =>
+                      handleUpdateUser({ nextSteps: 2, email: user.email })
+                    }
+                    onCancel={() => ""}
+                    okText="Yes"
+                    cancelText="No"
+                  >
+                    <Button type="default">Next Step &gt;&gt;</Button>
+                    <div style={{ float: "right" }}>Step 2 of 4</div>
+                  </Popconfirm>
+                </div>
+              </>
+            )}
+          </div>
+        )}
+
+      {user &&
+        user.role === "admin" &&
+        user.emailConfirm &&
+        user.nextSteps === 2 && (
+          <div
+            align="center"
+            style={{
+              border: "1px solid #0047AB",
+              padding: "20px 20px 10px 20px",
+              color: "#0047AB",
+              marginTop: 15,
+            }}
+          >
+            <Button
+              type="default"
+              className="btn btn-sm float-right"
+              onClick={() => setShowBody(!showBody)}
+            >
+              {showBody ? <>✖</> : <>Open</>}
+            </Button>
+            <h4 style={{ color: "red" }}>
+              Magsimula Ng Walang Puhunan. Magkabenta Now Puhunan Later!
+            </h4>
+            {showBody && (
+              <>
+                <br />
+                <div align="center" style={{ marginBottom: 20 }}>
+                  <ReactPlayer
+                    url={`https://vimeo.com/853974689`}
+                    width="100%"
+                    height={isMobile ? 178 : 320}
+                    controls={true}
+                  />
+                  <br />
+                </div>
+                <div align="left" style={{ marginBottom: 20 }}>
+                  <Button
+                    type="default"
+                    onClick={() =>
+                      handleUpdateUser({ nextSteps: 1, email: user.email })
+                    }
+                  >
+                    &lt;&lt; Prev Step
+                  </Button>
+                  <Popconfirm
+                    value={user}
+                    title="Are you sure you have carefully watch the video above?"
+                    onConfirm={() =>
+                      handleUpdateUser({ nextSteps: 3, email: user.email })
+                    }
+                    onCancel={() => ""}
+                    okText="Yes"
+                    cancelText="No"
+                  >
+                    <Button type="default">Next Step &gt;&gt;</Button>
+                    <div style={{ float: "right" }}>Step 3 of 4</div>
+                  </Popconfirm>
+                </div>
+              </>
+            )}
+          </div>
+        )}
+
+      {user &&
+        user.role === "admin" &&
+        user.emailConfirm &&
+        user.nextSteps === 3 && (
+          <div
+            align="center"
+            style={{
+              border: "1px solid #0047AB",
+              padding: "20px 20px 10px 20px",
+              color: "#0047AB",
+              marginTop: 15,
+            }}
+          >
+            <Button
+              type="default"
+              className="btn btn-sm float-right"
+              onClick={() => setShowBody(!showBody)}
+            >
+              {showBody ? <>✖</> : <>Open</>}
+            </Button>
+            <h4 style={{ color: "red" }}>
+              Benta, Benta, Benta! Paano Maka-Benta? Please Watch!!!
+            </h4>
+            {showBody && (
+              <>
+                <br />
+                <div align="center" style={{ marginBottom: 20 }}>
+                  <ReactPlayer
+                    url={`https://vimeo.com/853975185`}
+                    width="100%"
+                    height={isMobile ? 178 : 320}
+                    controls={true}
+                  />
+                  <br />
+                </div>
+                <div align="left" style={{ marginBottom: 20 }}>
+                  <Button
+                    type="default"
+                    onClick={() =>
+                      handleUpdateUser({ nextSteps: 2, email: user.email })
+                    }
+                  >
+                    &lt;&lt; Prev Step
+                  </Button>
+                  <Popconfirm
+                    value={user}
+                    title="Are you sure you have carefully watch the video above?"
+                    onConfirm={() =>
+                      handleUpdateUser({ nextSteps: 4, email: user.email })
+                    }
+                    onCancel={() => ""}
+                    okText="Yes"
+                    cancelText="No"
+                  >
+                    <Button type="default">Mark Done</Button>
+                    <div style={{ float: "right" }}>Step 4 of 4</div>
                   </Popconfirm>
                 </div>
               </>

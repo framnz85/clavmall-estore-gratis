@@ -87,6 +87,9 @@ const CheckoutDetails = ({ delivery }) => {
             disabled={loading}
           />
         </Form.Item>
+        {estoreSet.delloc && (
+          <p>NOTE: We only deliver on these locations: {estoreSet.delloc}</p>
+        )}
         <Form.Item
           name="delAddress"
           rules={[

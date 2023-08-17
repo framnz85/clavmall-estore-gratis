@@ -32,26 +32,26 @@ const VerifyEmail = ({ isModalVisible, setIsModalVisible }) => {
   };
 
   const sendVerification = () => {
-    const code = setVerifyCode();
+    const code = makeid(8);
 
-    updateUserDetails(
-      estoreSet._id,
-      { verifyCode: code.decrypt },
-      user.token
-    ).then((res) => {
-      if (res.data.err) {
-        toast.error(res.data.err);
-      } else {
-        const names = user && user.name ? user.name.split(" ") : "";
-        window.open(
-          `../../verify.html?email=${user.email}&name=${
-            names[0] ? names[0] : ""
-          }&cvc=${code.encrypt}`,
-          "_blank"
-        );
+    updateUserDetails(estoreSet._id, { verifyCode: code }, user.token).then(
+      (res) => {
+        if (res.data.err) {
+          toast.error(res.data.err);
+        } else {
+          const names = user && user.name ? user.name.split(" ") : "";
+          const myCipher = cipher("GUsAj3nEfhdtwttFbMEt0l00ZdXWWdRk");
+          const encrypt = myCipher(res.data.verifyCode);
+          window.open(
+            `../../verify.html?email=${user.email}&name=${
+              names[0] ? names[0] : ""
+            }&cvc=${encrypt}`,
+            "_blank"
+          );
+        }
+        setLoading(false);
       }
-      setLoading(false);
-    });
+    );
   };
 
   const makeid = (length) => {
@@ -65,12 +65,6 @@ const VerifyEmail = ({ isModalVisible, setIsModalVisible }) => {
       counter += 1;
     }
     return result;
-  };
-
-  const setVerifyCode = () => {
-    const myCipher = cipher("GUsAj3nEfhdtwttFbMEt0l00ZdXWWdRk");
-    const code = makeid(8);
-    return { decrypt: code, encrypt: myCipher(code) };
   };
 
   const cipher = (salt) => {

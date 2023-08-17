@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { Button } from "antd";
 
@@ -9,6 +9,8 @@ import InputSearch from "../../../components/common/InputSearch";
 import Alerts from "../../../components/common/Alerts";
 
 import { getAdminProducts, getInitProducts } from "../../../functions/product";
+import { getCategories } from "../../../functions/category";
+import { storeCategories } from "../../../reducers/categorySlice";
 
 const initialState = {
   products: [],
@@ -21,6 +23,8 @@ const initialState = {
 };
 
 const AllProducts = () => {
+  const dispatch = useDispatch();
+
   const [values, setValues] = useState(initialState);
   const [loading, setLoading] = useState(false);
   const [keyword, setKeyword] = useState("");
@@ -72,8 +76,20 @@ const AllProducts = () => {
         toast.error(res.data.err);
       } else {
         loadProducts();
+        loadCategories();
       }
       setLoading(false);
+    });
+  };
+
+  const loadCategories = () => {
+    getCategories(estoreSet._id).then((res) => {
+      if (res.data.err) {
+        toast.error(res.data.err);
+      } else {
+        dispatch(storeCategories(res.data));
+        localStorage.setItem("categories", JSON.stringify(res.data));
+      }
     });
   };
 
