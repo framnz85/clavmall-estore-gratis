@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserView } from "react-device-detect";
 import { Link } from "react-router-dom";
 import { Badge } from "antd";
@@ -9,17 +9,21 @@ import {
   UserAddOutlined,
   ShoppingOutlined,
   ShoppingCartOutlined,
+  BarcodeOutlined,
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { isMobile } from "react-device-detect";
 
 import SearchHead from "./SearchHead";
 import Categories from "./Categories";
+import Barcode from "../modal/Barcode";
 
 const Header = () => {
   const cart = useSelector((state) => state.cart);
   const user = useSelector((state) => state.user);
   const estoreSet = useSelector((state) => state.estoreSet);
+
+  const [isBarcodeOpen, setIsBarcodeOpen] = useState(false);
 
   const menuStyle = {
     mainContainer: {
@@ -80,6 +84,14 @@ const Header = () => {
             </Badge>
           </Link>
         </div>
+        <div className="p-3 mr-3">
+          <div
+            onClick={() => setIsBarcodeOpen(true)}
+            style={{ ...menuStyle.headerStyle, cursor: "pointer" }}
+          >
+            <BarcodeOutlined /> Barcode
+          </div>
+        </div>
       </BrowserView>
       <div className="d-flex justify-content-end">
         {isMobile && estoreSet && estoreSet._id && <Categories />}
@@ -128,6 +140,11 @@ const Header = () => {
           </>
         )}
       </div>
+      <Barcode
+        isBarcodeOpen={isBarcodeOpen}
+        setIsBarcodeOpen={setIsBarcodeOpen}
+        purpose="read"
+      />
     </div>
   );
 };

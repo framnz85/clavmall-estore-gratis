@@ -14,15 +14,19 @@ import {
   AiFillShopping,
   AiOutlineShopping,
   AiOutlineShoppingCart,
+  AiOutlineBarcode,
 } from "react-icons/ai";
 import { RiUser5Line } from "react-icons/ri";
 import { FaShoppingCart } from "react-icons/fa";
+
+import Barcode from "../modal/Barcode";
 
 const TabBottom = ({ notifyUser, checkNotification, notifyChange }) => {
   const navigate = useNavigate();
 
   const [activeTabs, setActiveTabs] = useState("Francis");
   const [notifyRequest, showNotitfyRequest] = useState(false);
+  const [isBarcodeOpen, setIsBarcodeOpen] = useState(false);
 
   const user = useSelector((state) => state.user);
   const cart = useSelector((state) => state.cart);
@@ -142,6 +146,13 @@ const TabBottom = ({ notifyUser, checkNotification, notifyChange }) => {
             )}
           </div>
           <div style={tabStyle.bnTab}>
+            <AiOutlineBarcode
+              size="35"
+              color="#009A57"
+              onClick={() => setIsBarcodeOpen(true)}
+            />
+          </div>
+          <div style={tabStyle.bnTab}>
             {activeTabs === "cart" ? (
               <Badge
                 count={
@@ -221,6 +232,11 @@ const TabBottom = ({ notifyUser, checkNotification, notifyChange }) => {
           can send you details whenever I am vacant.
         </p>
       </Modal>
+      <Barcode
+        isBarcodeOpen={isBarcodeOpen}
+        setIsBarcodeOpen={setIsBarcodeOpen}
+        purpose="read"
+      />
     </div>
   );
 };

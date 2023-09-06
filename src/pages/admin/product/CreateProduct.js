@@ -4,6 +4,7 @@ import {
   AccountBookOutlined,
   PlusSquareOutlined,
   UnorderedListOutlined,
+  BarcodeOutlined,
 } from "@ant-design/icons";
 import { Button, Form, Input, Select } from "antd";
 import { toast } from "react-toastify";
@@ -13,6 +14,7 @@ import AdminNav from "../../../components/navigation/AdminNav";
 import UploadImage from "../../../components/common/UploadImage";
 import Alerts from "../../../components/common/Alerts";
 import Limits from "../../../components/common/Limits";
+import Barcode from "../../../components/modal/Barcode";
 
 import { getCategories } from "../../../functions/category";
 import { uploadFileImage, addProduct } from "../../../functions/product";
@@ -32,11 +34,22 @@ const CreateProduct = () => {
 
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isBarcodeOpen, setIsBarcodeOpen] = useState(false);
+  const [barcode, setBarcode] = useState("");
 
   useEffect(() => {
     document.title = "Create Product | " + estoreSet.name;
     loadCategories();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (barcode.length > 0) {
+      form.setFieldsValue({
+        barcode: barcode,
+      });
+      setIsBarcodeOpen(false);
+    }
+  }, [barcode]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadCategories = () => {
     if (localStorage.getItem("categories")) {
@@ -149,15 +162,7 @@ const CreateProduct = () => {
                 disabled={loading}
               />
             </Form.Item>
-            <Form.Item
-              name="description"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input Product Description!",
-                },
-              ]}
-            >
+            <Form.Item name="description">
               <Input
                 prefix={
                   <UnorderedListOutlined className="site-form-item-icon" />
@@ -229,6 +234,14 @@ const CreateProduct = () => {
                 placeholder="Select Category"
               />
             </Form.Item>
+            <Form.Item name="barcode">
+              <Input
+                prefix={<BarcodeOutlined className="site-form-item-icon" />}
+                placeholder="Barcode"
+                onClick={() => setIsBarcodeOpen(true)}
+                disabled={loading}
+              />
+            </Form.Item>
             <Form.Item>
               <Button
                 type="primary"
@@ -243,6 +256,13 @@ const CreateProduct = () => {
           </Form>
 
           {products.length > 0 && <Limits type="product" />}
+
+          <Barcode
+            isBarcodeOpen={isBarcodeOpen}
+            setIsBarcodeOpen={setIsBarcodeOpen}
+            purpose="write"
+            setBarcode={setBarcode}
+          />
         </div>
       </div>
     </div>

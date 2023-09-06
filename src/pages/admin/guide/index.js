@@ -27,6 +27,12 @@ const Guide = () => {
     },
     { id: "845687441", title: "Step 5. Manage Home and Users" },
     { id: "853894520", title: "Step 6. How to Enable or Disable Notification" },
+    { id: "855303233", title: "Step 7. Setup Grocey, the AI Assistant" },
+    {
+      id: "855311650",
+      title: "Step 8. Admin vs Personal Account In Different Devices",
+    },
+    { id: "855333748", title: "Step 9. Free Upgrades vs Fully Upgrades" },
   ];
 
   useEffect(() => {
@@ -80,9 +86,15 @@ const Guide = () => {
           <div onClick={() => showGuideVideo("853894520")} style={linkStyle}>
             Step 6. How to Enable or Disable Notification
           </div>
-          <div>Step 7. Setup Grocey, the AI Assistant</div>
-          <div>Step 8. Admin vs Personal Account</div>
-          <div>Step 9. Free and Paid Upgrades</div>
+          <div onClick={() => showGuideVideo("855303233")} style={linkStyle}>
+            Step 7. Setup Grocey, the AI Assistant
+          </div>
+          <div onClick={() => showGuideVideo("855311650")} style={linkStyle}>
+            Step 8. Admin vs Personal Account In Different Devices
+          </div>
+          <div onClick={() => showGuideVideo("855333748")} style={linkStyle}>
+            Step 9. Free Upgrades vs Fully Upgrades
+          </div>
           <br />
           <br />
 

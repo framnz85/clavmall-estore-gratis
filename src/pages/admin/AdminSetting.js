@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Button, Switch } from "antd";
+import { Button, Switch, Input, Tooltip } from "antd";
+import { CopyOutlined } from "@ant-design/icons";
 import { toast } from "react-toastify";
 
 import AdminNav from "../../components/navigation/AdminNav";
@@ -36,6 +37,7 @@ const AdminSetting = () => {
 
   const [values, setValues] = useState(initialState);
   const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState("Copy to Clipboard");
 
   useEffect(() => {
     document.title = "Admin Settings | " + estoreSet.name;
@@ -49,6 +51,14 @@ const AdminSetting = () => {
         ...estoreSet,
       });
     }
+  };
+
+  const copyClipboard = (num) => {
+    const copyText = document.getElementById("myInput" + num);
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); // For mobile devices
+    navigator.clipboard.writeText(copyText.value);
+    setCopied("Copied");
   };
 
   const handleSubmit = () => {
@@ -92,6 +102,23 @@ const AdminSetting = () => {
           <div className="p-3">
             <h6 style={{ fontWeight: "bold" }}>Website ID: </h6>
             <h6>{values._id}</h6>
+            <br />
+            <label>
+              <b>Website Link</b>
+            </label>
+            <Input.Group compact>
+              <Input
+                style={{ width: "90%" }}
+                value={`${process.env.REACT_APP_LINK1}/${estoreSet.slug}`}
+                id="myInput1"
+              />
+              <Tooltip title={copied}>
+                <Button
+                  icon={<CopyOutlined />}
+                  onClick={() => copyClipboard(1)}
+                />
+              </Tooltip>
+            </Input.Group>
             <br />
             <InputText
               inputProperty={{

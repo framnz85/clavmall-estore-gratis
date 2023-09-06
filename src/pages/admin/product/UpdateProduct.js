@@ -4,6 +4,7 @@ import {
   AccountBookOutlined,
   PlusSquareOutlined,
   UnorderedListOutlined,
+  BarcodeOutlined,
 } from "@ant-design/icons";
 import { Button, Form, Input, Select } from "antd";
 import { toast } from "react-toastify";
@@ -12,6 +13,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import AdminNav from "../../../components/navigation/AdminNav";
 import UploadImage from "../../../components/common/UploadImage";
 import Alerts from "../../../components/common/Alerts";
+import Barcode from "../../../components/modal/Barcode";
 
 import { getCategories } from "../../../functions/category";
 import {
@@ -34,11 +36,22 @@ const UpdateProduct = () => {
   const [prodid, setProdid] = useState("");
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isBarcodeOpen, setIsBarcodeOpen] = useState(false);
+  const [barcode, setBarcode] = useState("");
 
   useEffect(() => {
     loadCategories();
     loadProduct();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (barcode.length > 0) {
+      form.setFieldsValue({
+        barcode: barcode,
+      });
+      setIsBarcodeOpen(false);
+    }
+  }, [barcode]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadCategories = () => {
     setLoading(true);
@@ -64,6 +77,7 @@ const UpdateProduct = () => {
           markup: res.data[0].markup,
           price: res.data[0].price,
           category: res.data[0].category._id,
+          barcode: res.data[0].barcode,
         });
         setImages(res.data[0].images);
         setProdid(res.data[0]._id);
@@ -158,15 +172,7 @@ const UpdateProduct = () => {
                 disabled={loading}
               />
             </Form.Item>
-            <Form.Item
-              name="description"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input Product Description!",
-                },
-              ]}
-            >
+            <Form.Item name="description">
               <Input
                 prefix={
                   <UnorderedListOutlined className="site-form-item-icon" />
@@ -238,6 +244,14 @@ const UpdateProduct = () => {
                 placeholder="Select Category"
               />
             </Form.Item>
+            <Form.Item name="barcode">
+              <Input
+                prefix={<BarcodeOutlined className="site-form-item-icon" />}
+                placeholder="Barcode"
+                onClick={() => setIsBarcodeOpen(true)}
+                disabled={loading}
+              />
+            </Form.Item>
             <Form.Item>
               <Button
                 type="primary"
@@ -250,6 +264,13 @@ const UpdateProduct = () => {
               </Button>
             </Form.Item>
           </Form>
+
+          <Barcode
+            isBarcodeOpen={isBarcodeOpen}
+            setIsBarcodeOpen={setIsBarcodeOpen}
+            purpose="write"
+            setBarcode={setBarcode}
+          />
         </div>
       </div>
     </div>

@@ -17,6 +17,16 @@ export const getSingleProduct = async (estoreid, slug) =>
     },
   });
 
+export const getProductByBarcode = async (estoreid, barcode) =>
+  await axios.get(
+    process.env.REACT_APP_API + "/gratis/get-product-by-barcode/" + barcode,
+    {
+      headers: {
+        estoreid,
+      },
+    }
+  );
+
 export const getInitProducts = async (estoreid, authToken) =>
   await axios.get(process.env.REACT_APP_API + "/gratis/init-product", {
     headers: {

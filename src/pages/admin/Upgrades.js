@@ -133,216 +133,31 @@ const Upgrades = () => {
           <br />
           <br />
 
-          <h4>Fully Upgrades</h4>
+          <h4>Prime Clavstore Platform</h4>
           <hr />
           <div>
             Now, if you want to get all the features of this platform with less
-            or no limitations and without invitations, click the button below to
-            know how.
+            or no limitations and without the need for inviting people then you
+            may consider to avail the Prime Clavstore Platform.
             <br />
             <br />
-            {/* <div style={styles.package1}>
-              <div style={styles.package2}>
-                <div
-                  align="center"
-                  style={{ ...styles.header, backgroundColor: "#FAD02C" }}
-                >
-                  Clavstore Subdomain Package
-                </div>
-                <div style={styles.body}>
-                  <ul>
-                    <li>Fully functional Grocery eCommerce</li>
-                    <li>Loaded with 1600+ Fast Moving Grocery Items</li>
-                    <li>Upload up to 2000 products</li>
-                    <li>Unlimited Customers, Categories, and Payments</li>
-                    <li>3 Months Free Hosting</li>
-                    <li>10-Days Training</li>
-                  </ul>
-                </div>
-                <div style={styles.footer}>
-                  One-Time: ₱2,990 <s>₱14,890</s> 80% Off
-                  <br />
-                  Hosting Fee: P540/mo (starts 3 months after)
-                </div>
-              </div>
-              <div style={styles.package2}>
-                <div
-                  align="center"
-                  style={{ ...styles.header, backgroundColor: "#F68181" }}
-                >
-                  Clavstore Domain Name Package
-                </div>
-                <div style={styles.body}>
-                  <ul>
-                    <li>Fully functional Grocery eCommerce</li>
-                    <li>Domain name of your choice</li>
-                    <li>Loaded with 4600+ Complete Grocery Items</li>
-                    <li>
-                      Unlimited Products, Customers, Categories, and Payments
-                    </li>
-                    <li>12 Months Free Hosting</li>
-                    <li>10-Days Training</li>
-                  </ul>
-                </div>
-                <div style={styles.footer}>
-                  One-Time: ₱4,990 <s>₱31,890</s> 85% Off
-                  <br />
-                  Hosting Fee: P4,320/yr (starts 1 year after)
-                </div>
-              </div>
-              <div style={styles.package2}>
-                <div
-                  align="center"
-                  style={{ ...styles.header, backgroundColor: "#7CF3A0" }}
-                >
-                  Clavstore Mobile App Package
-                </div>
-                <div style={styles.body}>
-                  <ul>
-                    <li>Fully functional Grocery eCommerce</li>
-                    <li>Domain name of your choice</li>
-                    <li>Mobile App (Android & iOS)</li>
-                    <li>Loaded with 4600+ Complete Grocery Items</li>
-                    <li>
-                      Unlimited Products, Customers, Categories, and Payments
-                    </li>
-                    <li>12 Months Free Hosting</li>
-                    <li>10-Days Training</li>
-                  </ul>
-                </div>
-                <div style={styles.footer}>
-                  One-Time: ₱8,990 <s>₱72,890</s> 88% Off
-                  <br />
-                  Hosting Fee: P4,320/yr (starts 1 year after)
-                </div>
-              </div>
-            </div> */}
-            {/* <div style={styles.package1}>
-              <div style={styles.package2}>
-                <div
-                  align="center"
-                  style={{ ...styles.header, backgroundColor: "#FAD02C" }}
-                >
-                  Subdomain Package
-                </div>
-                <div style={styles.body}>
-                  <ul>
-                    <li>We will upload 1600+ Fast Moving Grocery Items</li>
-                    <li>You can upload up to 2000 products</li>
-                    <li>Unlimited Customers, Categories, and Payments</li>
-                    <li>3 Months Free Hosting</li>
-                    <li>10-Days Training</li>
-                  </ul>
-                </div>
-                <div align="center" style={styles.footer}>
-                  <h5>One-Time Fee: ₱2,990 </h5>
-                  <h5>
-                    Hosting Fee: ₱540/month
-                    <br />
-                    <span style={{ fontSize: 12 }}>
-                      (starts 3 months after)
-                    </span>
-                  </h5>
-                  <br />
-                  Regular One-Time Fee: <s>₱14,890</s> 80% Off
-                  <br />
-                  Regular Hosting Fee: <s>₱2,700/month</s> 80% Off
-                </div>
-              </div>
-              <div style={styles.package2}>
-                <div
-                  align="center"
-                  style={{ ...styles.header, backgroundColor: "#F68181" }}
-                >
-                  Domain Name Package
-                </div>
-                <div style={styles.body}>
-                  <ul>
-                    <li>Includes a Domain Name</li>
-                    <li>We will upload 4600+ Grocery Items</li>
-                    <li>
-                      You can add Unlimited Products, Customers, Categories, and
-                      Payments
-                    </li>
-                    <li>12 Months Free Hosting</li>
-                    <li>10-Days Training</li>
-                  </ul>
-                </div>
-                <div align="center" style={styles.footer}>
-                  <h5>One-Time Fee: ₱4,990 </h5>
-                  <h5>
-                    Hosting Fee: ₱4,320/year
-                    <br />
-                    <span style={{ fontSize: 12 }}>(starts 1 year after)</span>
-                  </h5>
-                  <br />
-                  Regular One-Time Fee: <s>₱31,890</s> 85% Off
-                  <br />
-                  Regular Hosting Fee: <s>28,800/year</s> 85% Off
-                </div>
-              </div>
-              <div style={styles.package2}>
-                <div
-                  align="center"
-                  style={{ ...styles.header, backgroundColor: "#7CF3A0" }}
-                >
-                  Mobile App Package
-                </div>
-                <div style={styles.body}>
-                  <ul>
-                    <li>
-                      Includes a Domain Name and Mobile App (Android & iOS)
-                    </li>
-                    <li>We will upload 4600+ Complete Grocery Items</li>
-                    <li>
-                      You can add Unlimited Products, Customers, Categories, and
-                      Payments
-                    </li>
-                    <li>12 Months Free Hosting</li>
-                    <li>10-Days Training</li>
-                  </ul>
-                </div>
-                <div align="center" style={styles.footer}>
-                  <h5>One-Time Fee: ₱8,990 </h5>
-                  <h5>
-                    Hosting Fee: ₱4,320/year
-                    <br />
-                    <span style={{ fontSize: 12 }}>(starts 1 year after)</span>
-                  </h5>
-                  <br />
-                  Regular One-Time Fee: <s>₱72,890</s> 88% Off
-                  <br />
-                  Regular Hosting Fee: <s>28,800/year</s> 88% Off
-                </div>
-              </div>
-            </div>
-            <br /> */}
+            This platform is fully loaded with all the features needed for an
+            eCommerce business selling grocery products. One of the key feature
+            of this platform is that I will personally go to your place to guide
+            you how to build online grocery business right at your side.
+            <br />
+            <br />
+            To check the complete details of it, click the button below to see
+            al of what The Prime Clavstore Platform can offer.
+            <br />
+            <br />
             <div align="center">
-              {/* <Button
-                onClick={() =>
-                  window.open(
-                    "https://program.clavstore.com/program/ogpa-program?noRedirect=1"
-                  )
-                }
-                type="primary"
-                style={{ width: 350, fontSize: 18, height: 50 }}
-              >
-                Choose A Package
-              </Button>
-              <br />
-              <br /> */}
               <Button
-                onClick={() =>
-                  window.open(
-                    "https://program.clavstore.com/p/ogpa-program/?saleid=64cdbed56d639b6594048c2c&refid=64aeb70a153aa05ba6a1f390"
-                  )
-                }
                 type="danger"
-                style={{ width: 350, fontSize: 16, height: 85 }}
+                size="large"
+                onClick={() => window.open("https://prime.clavstore.com/")}
               >
-                Let Me Also Show You How To
-                <br /> Earn 1.17 Million Pesos A Month
-                <br /> With This Business
+                See Prime Clavstore Platform (Paid Platform)
               </Button>
             </div>
             <br />
